@@ -1,0 +1,1406 @@
+{
+  "EntityDescriptionMsg": {
+    "entityDescription": {
+      "namedEntity": {
+        "entryState": "ACTIVE",
+        "about": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C1647",
+        "entityID": {
+          "namespace": "NCI_Thesaurus",
+          "name": "C1647"
+        },
+        "describingCodeSystemVersion": {
+          "version": {
+            "content": "NCI_Thesaurus-17.01e",
+            "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.01e"
+          },
+          "codeSystem": {
+            "content": "NCI_Thesaurus",
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+          }
+        },
+        "designation": [{
+          "designationRole": "ALTERNATIVE",
+          "value": "Trastuzumab",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "ABP 980",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Anti-ERB-2",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Anti-HER2/c-erbB2 Monoclonal Antibody",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Anti-c-ERB-2",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Anti-c-erbB2 Monoclonal Antibody",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Anti-erbB-2",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Anti-erbB2 Monoclonal Antibody",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Anti-p185-HER2",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "HER2 Monoclonal Antibody",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Herceptin Biosimilar PF-05280014",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Herceptin Trastuzumab Biosimilar PF-05280014",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Herceptin",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI-GLOSS",
+          "value": "Herceptin",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Immunoglobulin G 1 (Human-Mouse Monoclonal RhuMab HER2gamma1-Chain Antihuman p185(Sup c-erbB2) Receptor), Disulfide with Human-Mouse Monoclonal RhuMab HER2 Light Chain, Dimer",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "MoAb HER2",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Monoclonal Antibody HER2",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Monoclonal Antibody c-erb-2",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "PF-05280014",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "RO0452317",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "FDA",
+          "value": "TRASTUZUMAB",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Trastuzumab Biosimilar ABP 980",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Trastuzumab Biosimilar PF-05280014",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Trastuzumab",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "c-erb-2 Monoclonal Antibody",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "rhuMAb HER2",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI-GLOSS",
+          "value": "trastuzumab",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "PREFERRED",
+          "value": "Trastuzumab",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "value": "Trastuzumab",
+          "language": {
+            "content": "en"
+          }
+        }],
+        "definition": [{
+          "definitionRole": "NORMATIVE",
+          "value": "A monoclonal antibody that binds to HER2 (human epidermal growth factor receptor 2), and can kill HER2-positive cancer cells. Monoclonal antibodies are made in the laboratory and can locate and bind to substances in the body, including cancer cells. Trastuzumab is used to treat breast cancer that is HER2-positive and has spread after treatment with other drugs. It is also used with other anticancer drugs to treat HER2-positive breast cancer after surgery. Trastuzumab is also being studied in the treatment of other types of cancer."
+        }, {
+          "definitionRole": "NORMATIVE",
+          "value": "A recombinant humanized monoclonal antibody directed against the human epidermal growth factor receptor 2 (HER2). After binding to HER2 on the tumor cell surface, trastuzumab induces an antibody-dependent cell-mediated cytotoxicity against tumor cells that overexpress HER2. HER2 is overexpressed by many adenocarcinomas, particularly breast adenocarcinomas. (NCI04)"
+        }],
+        "property": [{
+          "predicate": {
+            "uri": "http://lexgrid.org/definition",
+            "namespace": "NCI_Thesaurus",
+            "name": "ALT_DEFINITION"
+          },
+          "value": [{
+            "literal": {
+              "value": "A monoclonal antibody that binds to HER2 (human epidermal growth factor receptor 2), and can kill HER2-positive cancer cells. Monoclonal antibodies are made in the laboratory and can locate and bind to substances in the body, including cancer cells. Trastuzumab is used to treat breast cancer that is HER2-positive and has spread after treatment with other drugs. It is also used with other anticancer drugs to treat HER2-positive breast cancer after surgery. Trastuzumab is also being studied in the treatment of other types of cancer."
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI-GLOSS"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/definition-preferred",
+            "namespace": "NCI_Thesaurus",
+            "name": "DEFINITION"
+          },
+          "value": [{
+            "literal": {
+              "value": "A recombinant humanized monoclonal antibody directed against the human epidermal growth factor receptor 2 (HER2). After binding to HER2 on the tumor cell surface, trastuzumab induces an antibody-dependent cell-mediated cytotoxicity against tumor cells that overexpress HER2. HER2 is overexpressed by many adenocarcinomas, particularly breast adenocarcinomas. (NCI04)"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "Display_Name"
+          },
+          "value": [{
+            "literal": {
+              "value": "Trastuzumab"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "ABP 980"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "CN"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Anti-ERB-2"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Anti-HER2/c-erbB2 Monoclonal Antibody"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Anti-c-ERB-2"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Anti-c-erbB2 Monoclonal Antibody"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Anti-erbB-2"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Anti-erbB2 Monoclonal Antibody"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Anti-p185-HER2"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "HER2 Monoclonal Antibody"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Herceptin Biosimilar PF-05280014"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Herceptin Trastuzumab Biosimilar PF-05280014"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Herceptin"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "BR"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Herceptin"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "PT"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#source-code",
+              "namespace": "NCI_Thesaurus",
+              "name": "source-code"
+            },
+            "value": [{
+              "literal": {
+                "value": "CDR0000410745"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI-GLOSS"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Immunoglobulin G 1 (Human-Mouse Monoclonal RhuMab HER2gamma1-Chain Antihuman p185(Sup c-erbB2) Receptor), Disulfide with Human-Mouse Monoclonal RhuMab HER2 Light Chain, Dimer"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SN"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "MoAb HER2"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Monoclonal Antibody HER2"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Monoclonal Antibody c-erb-2"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "PF-05280014"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "CN"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "RO0452317"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "CN"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "TRASTUZUMAB"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "PT"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#source-code",
+              "namespace": "NCI_Thesaurus",
+              "name": "source-code"
+            },
+            "value": [{
+              "literal": {
+                "value": "P188ANX8CK"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "FDA"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Trastuzumab Biosimilar ABP 980"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Trastuzumab Biosimilar PF-05280014"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Trastuzumab"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "PT"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "c-erb-2 Monoclonal Antibody"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "rhuMAb HER2"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "AB"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "trastuzumab"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "PT"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#source-code",
+              "namespace": "NCI_Thesaurus",
+              "name": "source-code"
+            },
+            "value": [{
+              "literal": {
+                "value": "CDR0000045439"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI-GLOSS"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-preferred",
+            "namespace": "NCI_Thesaurus",
+            "name": "Preferred_Name"
+          },
+          "value": [{
+            "literal": {
+              "value": "Trastuzumab"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "label"
+          },
+          "value": [{
+            "literal": {
+              "value": "Trastuzumab"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Accepted_Therapeutic_Use_For",
+            "namespace": "NCI_Thesaurus",
+            "name": "Accepted_Therapeutic_Use_For"
+          },
+          "value": [{
+            "literal": {
+              "value": "Breast cancer overexpressing HER2 protein; Pancreatic cancer overexpressing p185HER2"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#CAS_Registry",
+            "namespace": "NCI_Thesaurus",
+            "name": "CAS_Registry"
+          },
+          "value": [{
+            "literal": {
+              "value": "180288-69-1"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Contributing_Source",
+            "namespace": "NCI_Thesaurus",
+            "name": "Contributing_Source"
+          },
+          "value": [{
+            "literal": {
+              "value": "CTRP"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Contributing_Source",
+            "namespace": "NCI_Thesaurus",
+            "name": "Contributing_Source"
+          },
+          "value": [{
+            "literal": {
+              "value": "FDA"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#FDA_UNII_Code",
+            "namespace": "NCI_Thesaurus",
+            "name": "FDA_UNII_Code"
+          },
+          "value": [{
+            "literal": {
+              "value": "P188ANX8CK"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Legacy_Concept_Name",
+            "namespace": "NCI_Thesaurus",
+            "name": "Legacy_Concept_Name"
+          },
+          "value": [{
+            "literal": {
+              "value": "Trastuzumab"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#NSC_Code",
+            "namespace": "NCI_Thesaurus",
+            "name": "NSC_Code"
+          },
+          "value": [{
+            "literal": {
+              "value": "688097"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#PDQ_Closed_Trial_Search_ID",
+            "namespace": "NCI_Thesaurus",
+            "name": "PDQ_Closed_Trial_Search_ID"
+          },
+          "value": [{
+            "literal": {
+              "value": "42265"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#PDQ_Open_Trial_Search_ID",
+            "namespace": "NCI_Thesaurus",
+            "name": "PDQ_Open_Trial_Search_ID"
+          },
+          "value": [{
+            "literal": {
+              "value": "42265"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Semantic_Type",
+            "namespace": "NCI_Thesaurus",
+            "name": "Semantic_Type"
+          },
+          "value": [{
+            "literal": {
+              "value": "Amino Acid, Peptide, or Protein"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Semantic_Type",
+            "namespace": "NCI_Thesaurus",
+            "name": "Semantic_Type"
+          },
+          "value": [{
+            "literal": {
+              "value": "Immunologic Factor"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#UMLS_CUI",
+            "namespace": "NCI_Thesaurus",
+            "name": "UMLS_CUI"
+          },
+          "value": [{
+            "literal": {
+              "value": "C0728747"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#code",
+            "namespace": "NCI_Thesaurus",
+            "name": "code"
+          },
+          "value": [{
+            "literal": {
+              "value": "C1647"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#primitive",
+            "namespace": "NCI_Thesaurus",
+            "name": "primitive"
+          },
+          "value": [{
+            "literal": {
+              "value": "false"
+            }
+          }]
+        }],
+        "subjectOf": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.01e/entity/C1647/subjectof",
+        "targetOf": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.01e/entity/C1647/targetof",
+        "parent": [{
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C20401",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.01e/entity/C20401",
+          "namespace": "NCI_Thesaurus",
+          "name": "C20401"
+        }],
+        "children": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.01e/entity/C1647/children",
+        "entityType": [{
+          "uri": "http://www.w3.org/2002/07/owl#Class",
+          "namespace": "owl",
+          "name": "Class"
+        }]
+      }
+    },
+    "heading": {
+      "resourceRoot": "https://lexevscts2.nci.nih.gov/lexevscts2/",
+      "resourceURI": "codesystem/NCI_Thesaurus/version/17.01e/entity/C1647",
+      "parameter": [{
+        "arg": "format",
+        "val": "json"
+      }],
+      "accessDate": "2017-02-27T11:08:43.482-05:00"
+    }
+  }
+}

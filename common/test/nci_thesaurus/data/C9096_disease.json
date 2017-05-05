@@ -1,0 +1,849 @@
+{
+  "EntityDescriptionMsg": {
+    "entityDescription": {
+      "namedEntity": {
+        "entryState": "ACTIVE",
+        "about": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C9096",
+        "entityID": {
+          "namespace": "NCI_Thesaurus",
+          "name": "C9096"
+        },
+        "describingCodeSystemVersion": {
+          "version": {
+            "content": "NCI_Thesaurus-17.03d",
+            "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+          },
+          "codeSystem": {
+            "content": "NCI_Thesaurus",
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+          }
+        },
+        "designation": [{
+          "designationRole": "ALTERNATIVE",
+          "value": "Stage IV Skin Melanoma",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Malignant Melanoma (of Skin), Stage IV",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Metastatic Cutaneous Melanoma",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Stage IV Cutaneous Malignant Melanoma",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Stage IV Cutaneous Melanoma",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Stage IV Malignant Melanoma of Skin",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Stage IV Malignant Melanoma of the Skin",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Stage IV Malignant Skin Melanoma",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Stage IV Melanoma of Skin",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Stage IV Melanoma of the Skin",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Stage IV Skin Melanoma AJCC v6",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Stage IV Skin Melanoma AJCC v7",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI",
+          "value": "Stage IV Skin Melanoma",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "assertedInCodeSystemVersion": "NCI-GLOSS",
+          "value": "stage IV melanoma",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "PREFERRED",
+          "value": "Stage IV Skin Melanoma",
+          "language": {
+            "content": "en"
+          }
+        }, {
+          "designationRole": "ALTERNATIVE",
+          "value": "Stage IV Skin Melanoma",
+          "language": {
+            "content": "en"
+          }
+        }],
+        "definition": [{
+          "definitionRole": "NORMATIVE",
+          "value": "Cancer has spread to other places in the body, such as the lung, liver, brain, bone, soft tissue, gastrointestinal (GI) tract, or to places in the skin far away from where the cancer first started."
+        }, {
+          "definitionRole": "NORMATIVE",
+          "value": "Stage IV includes: (Any T, Any N, M1).  M1: Distant metastasis. (from AJCC 6th and 7th Eds.)"
+        }],
+        "property": [{
+          "predicate": {
+            "uri": "http://lexgrid.org/definition",
+            "namespace": "NCI_Thesaurus",
+            "name": "ALT_DEFINITION"
+          },
+          "value": [{
+            "literal": {
+              "value": "Cancer has spread to other places in the body, such as the lung, liver, brain, bone, soft tissue, gastrointestinal (GI) tract, or to places in the skin far away from where the cancer first started."
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI-GLOSS"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/definition-preferred",
+            "namespace": "NCI_Thesaurus",
+            "name": "DEFINITION"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV includes: (Any T, Any N, M1).  M1: Distant metastasis. (from AJCC 6th and 7th Eds.)"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "Display_Name"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Skin Melanoma"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Malignant Melanoma (of Skin), Stage IV"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Metastatic Cutaneous Melanoma"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Cutaneous Malignant Melanoma"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Cutaneous Melanoma"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Malignant Melanoma of Skin"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Malignant Melanoma of the Skin"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Malignant Skin Melanoma"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Melanoma of Skin"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Melanoma of the Skin"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Skin Melanoma AJCC v6"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Skin Melanoma AJCC v7"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "SY"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Skin Melanoma"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "PT"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "FULL_SYN"
+          },
+          "value": [{
+            "literal": {
+              "value": "stage IV melanoma"
+            }
+          }],
+          "propertyQualifier": [{
+            "predicate": {
+              "uri": "http://lexgrid.org/representational-form",
+              "namespace": "lexgrid",
+              "name": "representational-form"
+            },
+            "value": [{
+              "literal": {
+                "value": "PT"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#source-code",
+              "namespace": "NCI_Thesaurus",
+              "name": "source-code"
+            },
+            "value": [{
+              "literal": {
+                "value": "CDR0000045139"
+              }
+            }]
+          }, {
+            "predicate": {
+              "uri": "http://lexgrid.org/property-source",
+              "namespace": "lexgrid",
+              "name": "property-source"
+            },
+            "value": [{
+              "literal": {
+                "value": "NCI-GLOSS"
+              }
+            }]
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-preferred",
+            "namespace": "NCI_Thesaurus",
+            "name": "Preferred_Name"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Skin Melanoma"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://lexgrid.org/presentation-alternate",
+            "namespace": "NCI_Thesaurus",
+            "name": "label"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage IV Skin Melanoma"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Contributing_Source",
+            "namespace": "NCI_Thesaurus",
+            "name": "Contributing_Source"
+          },
+          "value": [{
+            "literal": {
+              "value": "CTRP"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Legacy_Concept_Name",
+            "namespace": "NCI_Thesaurus",
+            "name": "Legacy_Concept_Name"
+          },
+          "value": [{
+            "literal": {
+              "value": "Stage_IV_Melanoma_of_the_Skin"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Neoplastic_Status",
+            "namespace": "NCI_Thesaurus",
+            "name": "Neoplastic_Status"
+          },
+          "value": [{
+            "literal": {
+              "value": "Malignant"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Semantic_Type",
+            "namespace": "NCI_Thesaurus",
+            "name": "Semantic_Type"
+          },
+          "value": [{
+            "literal": {
+              "value": "Neoplastic Process"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#UMLS_CUI",
+            "namespace": "NCI_Thesaurus",
+            "name": "UMLS_CUI"
+          },
+          "value": [{
+            "literal": {
+              "value": "C0854698"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#code",
+            "namespace": "NCI_Thesaurus",
+            "name": "code"
+          },
+          "value": [{
+            "literal": {
+              "value": "C9096"
+            }
+          }]
+        }, {
+          "predicate": {
+            "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#primitive",
+            "namespace": "NCI_Thesaurus",
+            "name": "primitive"
+          },
+          "value": [{
+            "literal": {
+              "value": "false"
+            }
+          }]
+        }],
+        "subjectOf": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C9096/subjectof",
+        "targetOf": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C9096/targetof",
+        "parent": [{
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417650_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417650_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417650_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417651_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417651_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417651_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417652_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417652_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417652_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417653_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417653_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417653_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417654_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417654_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417654_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417655_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417655_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417655_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417656_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417656_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417656_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417657_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417657_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417657_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417658_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417658_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417658_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417659_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417659_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417659_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417660_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417660_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417660_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417661_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417661_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417661_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417662_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417662_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417662_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417663_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417663_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417663_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C90514",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C90514",
+          "namespace": "NCI_Thesaurus",
+          "name": "C90514"
+        }, {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C91231",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C91231",
+          "namespace": "NCI_Thesaurus",
+          "name": "C91231"
+        }],
+        "children": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C9096/children",
+        "entityType": [{
+          "uri": "http://www.w3.org/2002/07/owl#Class",
+          "namespace": "owl",
+          "name": "Class"
+        }]
+      }
+    },
+    "heading": {
+      "resourceRoot": "https://lexevscts2.nci.nih.gov/lexevscts2/",
+      "resourceURI": "codesystem/NCI_Thesaurus/version/NCI_Thesaurus-17.03d/entity/C9096",
+      "parameter": [{
+        "arg": "format",
+        "val": "json"
+      }],
+      "accessDate": "2017-05-03T15:15:21.247-04:00"
+    }
+  }
+}

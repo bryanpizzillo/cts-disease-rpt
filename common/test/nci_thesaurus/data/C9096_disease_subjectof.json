@@ -1,0 +1,1002 @@
+{
+  "AssociationDirectory": {
+    "entry": [{
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C9096",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C9096",
+        "namespace": "NCI_Thesaurus",
+        "name": "C9096"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2002/07/owl#equivalentClass",
+        "name": "equivalentClass"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417643_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417643_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417643_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417643_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417643_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417643_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#A8",
+        "name": "Concept_In_Subset"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C116977",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C116977",
+          "namespace": "NCI_Thesaurus",
+          "name": "C116977"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C116977",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C116977",
+        "namespace": "NCI_Thesaurus",
+        "name": "C116977"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R108",
+        "name": "Disease_Has_Finding"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C39570",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C39570",
+          "namespace": "NCI_Thesaurus",
+          "name": "C39570"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C39570",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C39570",
+        "namespace": "NCI_Thesaurus",
+        "name": "C39570"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R142",
+        "name": "Disease_Excludes_Finding"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C36156",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C36156",
+          "namespace": "NCI_Thesaurus",
+          "name": "C36156"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C36156",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C36156",
+        "namespace": "NCI_Thesaurus",
+        "name": "C36156"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417650_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417650_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417650_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417650_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417650_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417650_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417651_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417651_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417651_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417651_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417651_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417651_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417652_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417652_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417652_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417652_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417652_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417652_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417653_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417653_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417653_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417653_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417653_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417653_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417654_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417654_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417654_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417654_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417654_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417654_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417655_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417655_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417655_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417655_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417655_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417655_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417656_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417656_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417656_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417656_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417656_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417656_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417657_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417657_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417657_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417657_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417657_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417657_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417658_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417658_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417658_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417658_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417658_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417658_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417659_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417659_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417659_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417659_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417659_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417659_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417660_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417660_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417660_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417660_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417660_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417660_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417661_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417661_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417661_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417661_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417661_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417661_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417662_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417662_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417662_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417662_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417662_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417662_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417663_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417663_60f67223_d922_4240_aa99_48eb2a894f6d",
+          "namespace": "NCI_Thesaurus",
+          "name": "@A417663_60f67223_d922_4240_aa99_48eb2a894f6d"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#@A417663_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/@A417663_60f67223_d922_4240_aa99_48eb2a894f6d",
+        "namespace": "NCI_Thesaurus",
+        "name": "@A417663_60f67223_d922_4240_aa99_48eb2a894f6d"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C90514",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C90514",
+          "namespace": "NCI_Thesaurus",
+          "name": "C90514"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C90514",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C90514",
+        "namespace": "NCI_Thesaurus",
+        "name": "C90514"
+      },
+      "predicate": {
+        "uri": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "name": "subClassOf"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C91231",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C91231",
+          "namespace": "NCI_Thesaurus",
+          "name": "C91231"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C91231",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C91231",
+        "namespace": "NCI_Thesaurus",
+        "name": "C91231"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R88",
+        "name": "Disease_Is_Stage"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C27971",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C27971",
+          "namespace": "NCI_Thesaurus",
+          "name": "C27971"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C27971",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C27971",
+        "namespace": "NCI_Thesaurus",
+        "name": "C27971"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R104",
+        "name": "Disease_Has_Normal_Cell_Origin"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12591",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12591",
+          "namespace": "NCI_Thesaurus",
+          "name": "C12591"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12591",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12591",
+        "namespace": "NCI_Thesaurus",
+        "name": "C12591"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R105",
+        "name": "Disease_Has_Abnormal_Cell"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12922",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12922",
+          "namespace": "NCI_Thesaurus",
+          "name": "C12922"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12922",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12922",
+        "namespace": "NCI_Thesaurus",
+        "name": "C12922"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R105",
+        "name": "Disease_Has_Abnormal_Cell"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12917",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12917",
+          "namespace": "NCI_Thesaurus",
+          "name": "C12917"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12917",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12917",
+        "namespace": "NCI_Thesaurus",
+        "name": "C12917"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R105",
+        "name": "Disease_Has_Abnormal_Cell"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C36873",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C36873",
+          "namespace": "NCI_Thesaurus",
+          "name": "C36873"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C36873",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C36873",
+        "namespace": "NCI_Thesaurus",
+        "name": "C36873"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R105",
+        "name": "Disease_Has_Abnormal_Cell"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C36862",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C36862",
+          "namespace": "NCI_Thesaurus",
+          "name": "C36862"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C36862",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C36862",
+        "namespace": "NCI_Thesaurus",
+        "name": "C36862"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R103",
+        "name": "Disease_Has_Normal_Tissue_Origin"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12801",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12801",
+          "namespace": "NCI_Thesaurus",
+          "name": "C12801"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12801",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12801",
+        "namespace": "NCI_Thesaurus",
+        "name": "C12801"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R103",
+        "name": "Disease_Has_Normal_Tissue_Origin"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C33563",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C33563",
+          "namespace": "NCI_Thesaurus",
+          "name": "C33563"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C33563",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C33563",
+        "namespace": "NCI_Thesaurus",
+        "name": "C33563"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R115",
+        "name": "Disease_May_Have_Finding"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43268",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C43268",
+          "namespace": "NCI_Thesaurus",
+          "name": "C43268"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43268",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C43268",
+        "namespace": "NCI_Thesaurus",
+        "name": "C43268"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R115",
+        "name": "Disease_May_Have_Finding"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C40993",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C40993",
+          "namespace": "NCI_Thesaurus",
+          "name": "C40993"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C40993",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C40993",
+        "namespace": "NCI_Thesaurus",
+        "name": "C40993"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R89",
+        "name": "Disease_May_Have_Molecular_Abnormality"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C40430",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C40430",
+          "namespace": "NCI_Thesaurus",
+          "name": "C40430"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C40430",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C40430",
+        "namespace": "NCI_Thesaurus",
+        "name": "C40430"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R101",
+        "name": "Disease_Has_Primary_Anatomic_Site"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12470",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12470",
+          "namespace": "NCI_Thesaurus",
+          "name": "C12470"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12470",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12470",
+        "namespace": "NCI_Thesaurus",
+        "name": "C12470"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R100",
+        "name": "Disease_Has_Associated_Anatomic_Site"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12907",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12907",
+          "namespace": "NCI_Thesaurus",
+          "name": "C12907"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }, {
+      "subject": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12907",
+        "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12907",
+        "namespace": "NCI_Thesaurus",
+        "name": "C12907"
+      },
+      "predicate": {
+        "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R100",
+        "name": "Disease_Has_Associated_Anatomic_Site"
+      },
+      "target": {
+        "entity": {
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12470",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d/entity/C12470",
+          "namespace": "NCI_Thesaurus",
+          "name": "C12470"
+        }
+      },
+      "assertedBy": {
+        "version": {
+          "content": "NCI_Thesaurus-17.03d",
+          "href": "https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.03d"
+        },
+        "codeSystem": {
+          "content": "NCI_Thesaurus",
+          "uri": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+        }
+      }
+    }],
+    "complete": "COMPLETE",
+    "numEntries": 34,
+    "heading": {
+      "resourceRoot": "https://lexevscts2.nci.nih.gov/lexevscts2/",
+      "resourceURI": "codesystem/NCI_Thesaurus/version/NCI_Thesaurus-17.03d/entity/C9096/subjectof",
+      "parameter": [{
+        "arg": "format",
+        "val": "json"
+      }],
+      "accessDate": "2017-05-03T13:39:53.418-04:00"
+    }
+  }
+}

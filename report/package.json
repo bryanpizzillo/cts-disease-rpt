@@ -1,0 +1,19 @@
+{
+  "name": "report",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "report-trials": "node report_trials.js | node ../common/node_modules/bunyan/bin/bunyan"
+  },
+  "author": "",
+  "dependencies": {
+    "JSONStream": "1.1.4",
+    "async": "2.0.1",
+    "babyparse": "0.4.6",
+    "byline": "^5.0.0",
+    "homedir": "^0.6.0",
+    "lodash": "4.13.1",
+    "moment": "^2.14.1",
+    "os-homedir": "^1.0.2"
+  }
+}
