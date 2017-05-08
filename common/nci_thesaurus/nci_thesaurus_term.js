@@ -20,13 +20,14 @@ class NCIThesaurusTerm {
    * 
    * @memberOf NCIThesaurusTerm
    */
-  constructor(entityID, preferredName, displayName, synonyms, semanticTypes) {
+  constructor(entityID, preferredName, displayName, synonyms, semanticTypes, parentTermIDs) {
     this.entityID = entityID;
     this.preferredName = preferredName;
     this.displayName = displayName;
-    //this.isMainType = false; //PROTOTYPE FIELD.  MOCKED IN nci_thesaurus
+    this.isMainType = false; //PROTOTYPE FIELD.  MOCKED IN nci_thesaurus
     this.synonyms = synonyms;
     this.semanticTypes = semanticTypes;
+    this.parentTermIDs = parentTermIDs;
     this.subjectOfInfo = false;
   }
 
@@ -38,7 +39,7 @@ class NCIThesaurusTerm {
    * 
    * @memberOf NCIThesaurusTerm
    */
-  isA(semType) {
+  isSemanticType(semType) {
     return _.some(this.semanticTypes, (type) => type.toLowerCase() == semType.toLowerCase());
   }
 
@@ -139,11 +140,27 @@ class NCIThesaurusTerm {
     let displayName = NCIThesaurusTerm._extractFirstSimpleProperty(namedEntity, "Display_Name");
     let preferredName = NCIThesaurusTerm._extractFirstSimpleProperty(namedEntity, "Preferred_Name");
     let semanticTypes = NCIThesaurusTerm._extractSimpleProperty(namedEntity, "Semantic_Type");
-    
+    let parentIDs = NCIThesaurusTerm._extractParentTermIDs(namedEntity);
+
+
     let synonyms = NCIThesaurusTerm._extractSynonyms(namedEntity);
 
-    let term = new NCIThesaurusTerm(entityID, preferredName, displayName, synonyms, semanticTypes); 
+    let term = new NCIThesaurusTerm(entityID, preferredName, displayName, synonyms,  semanticTypes, parentIDs); 
     return term;
+  }
+
+  /**
+   * Extract the parent terms that are NCIT IDs. (i.e. begins with C)
+   * 
+   * @static
+   * @param {any} namedEntity
+   * @returns
+   * 
+   * @memberOf NCIThesaurusTerm
+   */
+  static _extractParentTermIDs(namedEntity) {
+    let termIDs = _.map(namedEntity.parent, "name").filter((termID) => termID.startsWith("C"));
+    return termIDs;
   }
 
   /**

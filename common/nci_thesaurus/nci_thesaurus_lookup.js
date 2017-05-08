@@ -3,7 +3,8 @@ const async               = require("async");
 const Logger              = require("../logger");
 const NCIThesaurusTerm    = require("./nci_thesaurus_term");
 
-//const MainTypesMock       = require("./main-types.json");
+//THIS IS FOR MOCKING MAIN CANCER TYPES
+const MainTypesMock       = require("./main-types.json");
 
 // The NCI Thesaurus code system identifier used for building LexEVS urls.
 const CODE_SYSTEM_NAME = 'NCI_Thesaurus';
@@ -63,9 +64,9 @@ class NCIThesaurusLookup {
               if (rawObj) {
                 let term = NCIThesaurusTerm.DeserializeFromLexEVS(rawObj);
                 //MOCK OF PRIMARY TYPES
-                //if (MainTypesMock[term.entityID]) {
-                //  term.isMainType = true;
-                //}
+                if (MainTypesMock[term.entityID]) {
+                  term.isMainType = true;
+                }
                 return next(null, term);
               } else {
                 return next(null, null);

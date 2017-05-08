@@ -87,19 +87,9 @@ class TrialsReporter {
       .on("error", (err) => { logger.error(err); })
       .on("finish", (err, res) => { 
 
-        //Get Diseases
-        let trialdiseases = dmr.getReportedDiseases();
-        
-        let stream = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + "menudiseases"));
-
-        trialdiseases.forEach((diseaseInfo) => {
-          stream.write(diseaseInfo.join("|") + "\n");
-        });
-
-        stream.end(null, null, () => {
+        this._outputDiseaseMenus(dmr, () => {
           callback();
         });
-
         /*
         fs.writeFile(
           path.join(os.homedir(), TRIALS_FILEPATH + "trialdiseases"), 
@@ -110,6 +100,56 @@ class TrialsReporter {
         );
         */        
       });
+  }
+
+  _outputDiseaseMenus(dmr, callback) {
+      logger.info("Outputting disease menus...");
+
+      //Get Diseases
+      let trialdiseases = dmr.getReportedDiseases();
+      
+      let stream = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + "menudiseases"));
+
+      trialdiseases.forEach((diseaseInfo) => {
+        stream.write(diseaseInfo.join("|") + "\n");
+      });
+
+      stream.end(null, null, () => {
+        
+        this._outputFlatDiseaseMenus(dmr, ()=>{
+          callback();
+        })
+      });
+  }
+
+  _outputFlatDiseaseMenus(dmr, callback) {
+      logger.info("Outputting flattened disease menus...");
+
+      //Get Diseases
+      let trialdiseases = dmr.getReportedDiseases();
+      
+      let stream = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + "fltmenudiseases"));
+
+      let grouped = _.groupBy(trialdiseases, disease => disease[4] != '' ? (disease[4] + '/' + disease[1]) : disease[1]);
+
+      _.each(grouped, (diseaseGroup, termID) => { //Note, diseaseGroup,termID is value,key
+          //Assume disease Group always has at least one element
+
+          let diseaseInfo = [
+            diseaseGroup[0][1],
+            diseaseGroup[0][2],
+            diseaseGroup[0][3],
+            diseaseGroup[0][4],
+            diseaseGroup[0][5],
+            diseaseGroup.map(disease => disease[0]).join(',')
+          ];
+          
+          stream.write(diseaseInfo.join("|") + "\n");
+        });
+
+      stream.end(null, null, () => {
+        callback();
+      });    
   }
 
   static run() {

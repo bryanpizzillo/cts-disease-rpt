@@ -27,71 +27,198 @@ class DiseaseReporter extends Transform {
       return this.diseases;
   }
 
+  /**
+   * Gets all the parents that are a type of Neoplastic Process
+   * and are tagged with main parent.
+   * 
+   * @param {any} term
+   * @param {any} done (err, arrayofparents)
+   * 
+   * @memberOf DiseaseReporter
+   */
+  _getMainParents(term, done) {
+
+    let mainParents = [];
+
+    async.eachSeries(
+      term.parentTermIDs,
+      (parentID, cb) => {
+        //Get each immediate parent's term and parents.
+        this.thesaurusLookup.getTerm(parentID, (err, parentTerm) => {
+          if (err) {
+            return cb(err);
+          }
+
+          //Check if we are a neoplastic process
+          if (parentTerm.isSemanticType('Neoplastic Process')) {
+            //This is a neoplastic process, so we are a candidate for being a main type,
+            if (parentTerm.isMainType && !_.some(mainParents, ["entityID", parentTerm.entityID])) {
+              mainParents.push(parentTerm);
+            }
+
+            //and having more parents that could be main types. This would be a recursive Call
+            this._getMainParents(parentTerm, (mperr, parentMainParents) => {
+              if (mperr) {
+                return cb(mperr);
+              }
+
+              //This list will be filtered, so we do not need to check semantic types or
+              //if isMainType
+              parentMainParents.forEach((parentsMainParent) => {
+                if (!_.some(mainParents, ["entityID", parentsMainParent.entityID])) {
+                  mainParents.push(parentsMainParent);
+                }
+              });
+
+              setTimeout(() => { cb(); });
+            });
+          } else {
+            //Not a neoplastic process, so move on.
+            setTimeout(() => { cb(); });
+          }
+        })
+      },
+      (err) => {
+        if (err) {
+          return done(err);
+        }
+        return done(null, mainParents);
+      }
+    );  
+
+  }
+
+  _getNeoplasticProcess(disease, term, done) {
+
+    //Identify Parent/Sub-parent
+    //Collect up list of isMainType parents
+    this._getMainParents(term, (err, mainParents) => {
+      if (err) {
+        return done(err);
+      }
+
+      let rtnTermInfos = [];
+
+      let rtnTermInfo = {
+            termID: disease.nci_thesaurus_concept_id,
+            menu: '', //Neoplasm or Stage
+            displayName: term.displayName ? term.displayName : term.preferredName,
+            parentID: '',
+            parentName: ''  
+      }
+
+      if (term.isMainType) {
+        rtnTermInfo.menu = 'Neoplasm';
+        rtnTermInfos.push(rtnTermInfo);
+        mainParents.forEach((parent) => {
+          let termClone = _.clone(rtnTermInfo);
+          termClone.parentID = parent.entityID;
+          termClone.parentName = parent.displayName ? parent.displayName : parent.preferredName;
+          rtnTermInfos.push(termClone);
+        });
+      } else if (term.hasSubjectOfAssociation("Disease_Is_Stage") || term.hasSubjectOfAssociation("Disease_Is_Grade")) {      
+        rtnTermInfo.menu = 'Stage or Grade';
+        //The parents of stages are odd.  Where a subtype may have specific stages should we mix all the stages when a parent
+        //is selected?  That may be UI logic that determines all the stages to fetch and which to filter.
+        if (mainParents.length > 0) {
+          mainParents.forEach((parent) => {
+            let termClone = _.clone(rtnTermInfo);
+            termClone.parentID = parent.entityID;
+            termClone.parentName = parent.displayName ? parent.displayName : parent.preferredName;
+            rtnTermInfos.push(termClone);
+          });
+        } else {
+          rtnTermInfo.menu = 'Stage or Grade - NO PARENTS';
+          rtnTermInfos.push(rtnTermInfo);          
+        }
+      } else {
+        rtnTermInfo.menu = 'Neoplasm';
+        if (mainParents.length > 0) {
+          mainParents.forEach((parent) => {
+            let termClone = _.clone(rtnTermInfo);
+            termClone.parentID = parent.entityID;
+            termClone.parentName = parent.displayName ? parent.displayName : parent.preferredName;
+            rtnTermInfos.push(termClone);
+          });
+        } else {
+          rtnTermInfo.menu = 'Neoplasm - NO PARENTS';
+          rtnTermInfos.push(rtnTermInfo);
+        }
+      }      
+
+      done(null, rtnTermInfos);
+    });
+  }
+
   _getDiseaseInfo(disease, done) {
     this.thesaurusLookup.getTerm(disease.nci_thesaurus_concept_id, (err, term) => {
       if (err) {
         return done(err);
       }
 
-      let rtnTermInfo = {
-        termID: disease.nci_thesaurus_concept_id,
-        termType: '',
-        primary: '',
-        secondary: '',
-        stage_or_grade: '',
-        finding_or_abnormality: '',
-        side_effect: '',
-        unknown: ''
-      };
+      let rtnTermInfos = [];
       
       if (!term) {
-        rtnTermInfo.termType = "!!MISSING!!";
-        return done(null, rtnTermInfo);
+        rtnTermInfos.push({
+          termID: disease.nci_thesaurus_concept_id,
+          menu: "!!MISSING!!",
+          displayName: '',
+          parentID: '',
+          parentName: ''
+        });
+        return done(null, rtnTermInfos);
       }
 
-      if (term.isA("Neoplastic Process")) {
-
-        //Identify Parent/Sub-parent
-
-        if (term.hasSubjectOfAssociation("Disease_Is_Stage") || term.hasSubjectOfAssociation("Disease_Is_Grade")) {
-          rtnTermInfo.termType = 'Stage or Grade';
-          rtnTermInfo.stage_or_grade = term.preferredName;
-        } else {
-
-          rtnTermInfo.termType = 'Secondary';
-          rtnTermInfo.secondary = term.preferredName;
+      if (term.isSemanticType("Neoplastic Process")) {
+        //Call neoplastic process specific code and stop processing this term
+        return this._getNeoplasticProcess(disease, term, done);
+      } else { 
+        if (
+          term.isSemanticType("Laboratory or Test Result") || 
+          term.isSemanticType("Finding") ||
+          term.isSemanticType("Cell or Molecular Dysfunction") ||
+          term.isSemanticType("Gene or Genome") ||
+          term.isSemanticType("Clinical Attribute")
+        ) {
+          //Finding...
+          let rtnTermInfo = {
+            termID: disease.nci_thesaurus_concept_id,
+            menu: 'Finding or Abnormality',
+            displayName: term.displayName ? term.displayName : term.preferredName,
+            parentID: null,
+            parentName: null
+          };
+          rtnTermInfos.push(rtnTermInfo);
         }
-      } 
-      else if (
-        term.isA("Laboratory or Test Result") || 
-        term.isA("Finding") ||
-        term.isA("Cell or Molecular Dysfunction") ||
-        term.isA("Gene or Genome") ||
-        term.isA("Clinical Attribute")
-      ) {
-        //Finding...
-        rtnTermInfo.termType = 'Finding or Abnormality';
-        rtnTermInfo.finding_or_abnormality = term.preferredName;
+        else if (
+          term.isSemanticType("Disease or Syndrome") || 
+          term.isSemanticType("Sign or Symptom") || 
+          term.isSemanticType("Mental or Behavioral Dysfunction")
+        ) {
+          //Side Effect
+          let rtnTermInfo = {
+            termID: disease.nci_thesaurus_concept_id,
+            menu: 'Side Effect',            
+            displayName: term.displayName ? term.displayName : term.preferredName,
+            parentID: null,
+            parentName: null
+          };
+          rtnTermInfos.push(rtnTermInfo);
+        }
+        else {        
+          let rtnTermInfo = {
+            termID: disease.nci_thesaurus_concept_id,
+            menu: 'UNKNOWN',
+            displayName: term.displayName ? term.displayName : term.preferredName,
+            parentID: null,
+            parentName: null            
+          };
+          console.log(`${term.preferredName} (${term.entityID}) is not a known type`);
+          console.log(term.semanticTypes);
+          rtnTermInfos.push(rtnTermInfo);
+        }
+        return done(null, rtnTermInfos);
       }
-      else if (
-        term.isA("Disease or Syndrome") || 
-        term.isA("Sign or Symptom") || 
-        term.isA("Mental or Behavioral Dysfunction")
-      ) {
-        //Side Effect?
-        rtnTermInfo.termType = 'Side Effect';
-        rtnTermInfo.side_effect = term.preferredName;
-      }
-      else {        
-        rtnTermInfo.termType = 'UNKNOWN';
-        rtnTermInfo.unknown = term.preferredName;
-        console.log(`${term.preferredName} (${term.entityID}) is not a known type`);
-        console.log(term.semanticTypes);
-      }
-
-
-
-      return done(null, rtnTermInfo);
     })
   }
 
@@ -105,11 +232,11 @@ class DiseaseReporter extends Transform {
     let trialDiseases = _.filter(trial.diseases, ["inclusion_indicator", "TRIAL"]);
     
     async.eachLimit(
-      trialDiseases,      
-      3,
+      trialDiseases,
+      5,
       (disease, next) => {
         //fetch disease
-        this._getDiseaseInfo(disease, (err, diseaseInfo) => {
+        this._getDiseaseInfo(disease, (err, diseaseInfos) => {
           if (err) {
             return next(err);
           }
@@ -124,19 +251,17 @@ class DiseaseReporter extends Transform {
         unknown: ''
 */
           //push info
-          this.diseases.push([
-            trial.nci_id, 
-            diseaseInfo.termID,
-            diseaseInfo.termType,
-            diseaseInfo.primary, 
-            diseaseInfo.secondary,
-            diseaseInfo.stage_or_grade,
-            diseaseInfo.finding_or_abnormality,
-            diseaseInfo.side_effect,
-            diseaseInfo.unknown
-          ]);
-
-          next();
+          diseaseInfos.forEach((diseaseInfo) => {
+            this.diseases.push([
+              trial.nci_id, 
+              diseaseInfo.termID,
+              diseaseInfo.menu,
+              diseaseInfo.displayName,
+              diseaseInfo.parentID,
+              diseaseInfo.parentName
+            ]);
+          });
+          setTimeout(() => { next(); });
         })
       },
       done
