@@ -87,7 +87,11 @@ class TrialsReporter {
       .on("error", (err) => { logger.error(err); })
       .on("finish", (err, res) => { 
 
+        
         this._outputDiseaseMenus(dmr, () => {
+          let termCacheCount = this.thesaurusLookup.getNumCachedTerms();
+          logger.info(`Terms Queried: ${termCacheCount}`);
+
           callback();
         });
         /*
@@ -141,6 +145,7 @@ class TrialsReporter {
             diseaseGroup[0][3],
             diseaseGroup[0][4],
             diseaseGroup[0][5],
+            diseaseGroup[0][6],
             diseaseGroup.map(disease => disease[0]).join(',')
           ];
           

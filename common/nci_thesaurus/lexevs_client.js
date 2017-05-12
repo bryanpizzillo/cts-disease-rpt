@@ -24,6 +24,8 @@ class LexEVSClient extends AbstractLexEVSClient {
     }
     url += `${method}?format=json`;
 
+    
+
     return url;
   }
 
@@ -83,7 +85,8 @@ class LexEVSClient extends AbstractLexEVSClient {
    * @memberOf LexEVSClient
    */
   getSubjectOf(codeSystem, codeSystemVersion, entityID, done) {
-    let url = this._buildUrl(codeSystem, codeSystemVersion, `/entity/${entityID}/subjectof`);
+    //maxtoreturn hack to make sure we get all associations in one call.
+    let url = this._buildUrl(codeSystem, codeSystemVersion, `/entity/${entityID}/subjectof`) + "&maxtoreturn=1000";
 
     https.get(url, (res) => {
 

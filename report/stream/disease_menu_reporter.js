@@ -40,8 +40,9 @@ class DiseaseReporter extends Transform {
 
     let mainParents = [];
 
-    async.eachSeries(
+    async.eachLimit(
       term.parentTermIDs,
+      5,
       (parentID, cb) => {
         //Get each immediate parent's term and parents.
         this.thesaurusLookup.getTerm(parentID, (err, parentTerm) => {
@@ -102,9 +103,10 @@ class DiseaseReporter extends Transform {
       let rtnTermInfo = {
             termID: disease.nci_thesaurus_concept_id,
             menu: '', //Neoplasm or Stage
+            conceptStatus: term.conceptStatus,
             displayName: term.displayName ? term.displayName : term.preferredName,
             parentID: '',
-            parentName: ''  
+            parentName: ''            
       }
 
       if (term.isMainType) {
@@ -184,6 +186,7 @@ class DiseaseReporter extends Transform {
           let rtnTermInfo = {
             termID: disease.nci_thesaurus_concept_id,
             menu: 'Finding or Abnormality',
+            conceptStatus: term.conceptStatus,
             displayName: term.displayName ? term.displayName : term.preferredName,
             parentID: null,
             parentName: null
@@ -198,7 +201,8 @@ class DiseaseReporter extends Transform {
           //Side Effect
           let rtnTermInfo = {
             termID: disease.nci_thesaurus_concept_id,
-            menu: 'Side Effect',            
+            menu: 'Side Effect',
+            conceptStatus: term.conceptStatus,            
             displayName: term.displayName ? term.displayName : term.preferredName,
             parentID: null,
             parentName: null
@@ -209,6 +213,7 @@ class DiseaseReporter extends Transform {
           let rtnTermInfo = {
             termID: disease.nci_thesaurus_concept_id,
             menu: 'UNKNOWN',
+            conceptStatus: term.conceptStatus,
             displayName: term.displayName ? term.displayName : term.preferredName,
             parentID: null,
             parentName: null            
@@ -233,7 +238,7 @@ class DiseaseReporter extends Transform {
     
     async.eachLimit(
       trialDiseases,
-      5,
+      10,
       (disease, next) => {
         //fetch disease
         this._getDiseaseInfo(disease, (err, diseaseInfos) => {
@@ -254,8 +259,9 @@ class DiseaseReporter extends Transform {
           diseaseInfos.forEach((diseaseInfo) => {
             this.diseases.push([
               trial.nci_id, 
-              diseaseInfo.termID,
               diseaseInfo.menu,
+              diseaseInfo.termID,              
+              diseaseInfo.conceptStatus,
               diseaseInfo.displayName,
               diseaseInfo.parentID,
               diseaseInfo.parentName

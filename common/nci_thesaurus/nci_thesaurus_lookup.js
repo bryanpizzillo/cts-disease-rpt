@@ -33,6 +33,10 @@ class NCIThesaurusLookup {
     this.indexCounter = 0;
   }
 
+  getNumCachedTerms() {
+    return _.keys(this.termCache).length;
+  }
+
   /**
    * Gets a term from the NCI thesaurus.  
    * 

@@ -20,10 +20,11 @@ class NCIThesaurusTerm {
    * 
    * @memberOf NCIThesaurusTerm
    */
-  constructor(entityID, preferredName, displayName, synonyms, semanticTypes, parentTermIDs) {
+  constructor(entityID, preferredName, displayName, conceptStatus, synonyms, semanticTypes, parentTermIDs) {
     this.entityID = entityID;
     this.preferredName = preferredName;
     this.displayName = displayName;
+    this.conceptStatus = conceptStatus;
     this.isMainType = false; //PROTOTYPE FIELD.  MOCKED IN nci_thesaurus
     this.synonyms = synonyms;
     this.semanticTypes = semanticTypes;
@@ -139,13 +140,14 @@ class NCIThesaurusTerm {
     let entityID = namedEntity.entityID.name;
     let displayName = NCIThesaurusTerm._extractFirstSimpleProperty(namedEntity, "Display_Name");
     let preferredName = NCIThesaurusTerm._extractFirstSimpleProperty(namedEntity, "Preferred_Name");
+    let conceptStatus = NCIThesaurusTerm._extractFirstSimpleProperty(namedEntity, "Concept_Status");
     let semanticTypes = NCIThesaurusTerm._extractSimpleProperty(namedEntity, "Semantic_Type");
     let parentIDs = NCIThesaurusTerm._extractParentTermIDs(namedEntity);
 
 
     let synonyms = NCIThesaurusTerm._extractSynonyms(namedEntity);
 
-    let term = new NCIThesaurusTerm(entityID, preferredName, displayName, synonyms,  semanticTypes, parentIDs); 
+    let term = new NCIThesaurusTerm(entityID, preferredName, displayName, conceptStatus, synonyms,  semanticTypes, parentIDs); 
     return term;
   }
 
