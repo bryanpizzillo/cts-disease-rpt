@@ -274,30 +274,15 @@ class DiseaseReporter extends Transform {
     );
   }
 
-  _transform(buffer, enc, next) {
+  _transform(trial, enc, next) {
 
-    let line = buffer.toString();
-    if (line.slice(0, 2) === " {") {
-      var trial;
-      try {
-        trial = JSON.parse(line);
-      } catch (err) {
-        // TODO: send this as an alert email/sms
-        // logger.error("Could not parse trial: " + line);
-        logger.error(err);
-        return next();
-      }
+    logger.info(`Disease reporting for trial with nci_id (${trial.nci_id})...`);
 
-      logger.info(`Disease reporting for trial with nci_id (${trial.nci_id})...`);
+    this._inventoryDiseases(trial, (err, res) => {
+      this.push(trial);
+      next(err);
+    });
 
-      this._inventoryDiseases(trial, (err, res) => {
-        this.push(trial);
-        next(err);
-      });
-
-    } else {
-      next(); // Skip this record.
-    }
   }
 
 }

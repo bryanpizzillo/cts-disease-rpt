@@ -12,9 +12,11 @@ const NCIThesaurusLookup  = require("../common/nci_thesaurus/nci_thesaurus_looku
 const LexEVSClient        = require("../common/nci_thesaurus/lexevs_client");
 
 //const CleanseStream       = require("./stream/cleanse.js");
-//const CsvStream           = require("./stream/csv.js");
+const CsvStream           = require("./stream/csv.js");
 //const GeoCodingStream     = require("./stream/geo_coding.js");
 const SpecialCharsStream    = require("./stream/special_chars.js");
+const ExtractTrialStream    = require("./stream/extract_trial");
+const RemapDiseasesStream    = require("./stream/remap_diseases");
 const DiseaseReporter       = require("./stream/disease_reporter");
 const TrialIDReporter       = require("./stream/trialid_reporter");
 const TrialDiseaseReporter  = require("./stream/trial_disease_reporter");
@@ -22,6 +24,7 @@ const DiseaseMenuReporter  = require("./stream/disease_menu_reporter");
 
 let logger = new Logger({ name: "report-trials" });
 
+const OLDDISEASES_FILEPATH = "Development/cts-data/old_disease_mappings.txt";
 const THESAURUS_FILEPATH = "../../data/Thesaurus.txt";
 const NEOPLASM_CORE_FILEPATH = "../../data/Neoplasm_Core.csv";
 const DISEASE_BLACKLIST_FILEPATH = "disease_blacklist.csv";
@@ -62,10 +65,39 @@ class TrialsReporter {
       .on("finish", callback);
   }
 
+  _loadOldDiseaseMap(callback) {
+    logger.info("Loading the old disease mappings...");
+    let header = [
+      "old_code", "old_label", "new_code", "new_label"
+    ];
+    let delimiter = "|";
+    let exclude = []
+    this.old_diseases = [];
+
+    let rs = fs.createReadStream(path.join(os.homedir(), OLDDISEASES_FILEPATH));
+    let ls = byline.createStream();
+    let cs = new CsvStream({header, delimiter, exclude});
+
+    rs.on("error", (err) => { logger.error(err); })
+      .pipe(ls)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(cs)
+      .on("error", (err) => { logger.error(err); })
+      .on("data", (jsonRow) => {
+        this.old_diseases.push(jsonRow);
+      })
+      .on("finish", () => {
+        logger.info(`Loaded ${this.old_diseases.length} terms from the old disease mappings.`);
+        return callback();
+      });
+  }
+
   _reportTrials(callback) {
     logger.info("Running reports trials...");
     let rs = fs.createReadStream(path.join(os.homedir(), TRIALS_FILEPATH + SPECIAL_CHARS_REMOVED_EXT));
     let ls = byline.createStream();
+    let et = new ExtractTrialStream();
+    let rm = new RemapDiseasesStream(this.thesaurusLookup, this.old_diseases);
     let ts = new DiseaseReporter();
     let tdr = new TrialDiseaseReporter();
     let rt = new TrialIDReporter();
@@ -73,10 +105,14 @@ class TrialsReporter {
     //let gs = new GeoCodingStream();
     let jw = JSONStream.stringify();
     let ws = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + SUPPLEMENTED_EXT));
-
+//TODO: add extract disease, and then add map diseases.
     rs.on("error", (err) => { logger.error(err); })
       .pipe(ls)
       .on("error", (err) => { logger.error(err); })
+      .pipe(et)
+      .on("error", (err) => { logger.error(err); })      
+      .pipe(rm)
+      .on("error", (err) => { logger.error(err); })      
       .pipe(dmr)
       .on("error", (err) => { logger.error(err); })
       //.pipe(gs)
@@ -162,6 +198,7 @@ class TrialsReporter {
     let trialsReporter = new this();
     async.waterfall([
       (next) => { trialsReporter._removeSpecialChars(next); },
+      (next) => { trialsReporter._loadOldDiseaseMap(next); },
       //(next) => { trialsTransformer._loadThesaurus(next); },
       //(next) => { trialsTransformer._loadNeoplasmCore(next); },
       //(next) => { trialsTransformer._loadDiseaseBlacklist(next); },
