@@ -6,6 +6,15 @@ const async               = require("async");
 
 let logger = new Logger({ name: "supplement-stream" });
 
+
+const PARENTS_OF_LAST_RESORT  = ['C4741', 'C3263', 'C7062', 'C2991'];
+const PARENTS_OF_LAST_RESORT_MAP  = [
+  { entityID: 'C4741'}, 
+  { entityID: 'C3263'}, 
+  { entityID: 'C7062'}, 
+  { entityID: 'C2991'}
+];
+
 /**
  * Supplements trials by adding appropriate NCIt values and other terms
  *
@@ -42,7 +51,7 @@ class DiseaseReporter extends Transform {
 
     async.eachLimit(
       term.parentTermIDs,
-      5,
+      20,
       (parentID, cb) => {
         //Get each immediate parent's term and parents.
         this.thesaurusLookup.getTerm(parentID, (err, parentTerm) => {
@@ -50,8 +59,8 @@ class DiseaseReporter extends Transform {
             return cb(err);
           }
 
-          //Check if we are a neoplastic process
-          if (parentTerm.isSemanticType('Neoplastic Process')) {
+          //Check if we are a neoplastic process (or isMainType, in the case of Disease or Disorder)
+          if (parentTerm.isSemanticType('Neoplastic Process') || parentTerm.isMainType) {
             //This is a neoplastic process, so we are a candidate for being a main type,
             if (parentTerm.isMainType && !_.some(mainParents, ["entityID", parentTerm.entityID])) {
               mainParents.push(parentTerm);
@@ -109,6 +118,15 @@ class DiseaseReporter extends Transform {
             parentName: ''            
       }
 
+      //Deal with Parents of last resort
+      if (mainParents.length > 0) {
+                
+        let filteredParents = _.differenceBy(mainParents, PARENTS_OF_LAST_RESORT_MAP, 'entityID');
+        if (filteredParents.length > 0) {
+          mainParents = filteredParents;
+        } // else use Parent of Last Resort.  Or not.
+      }
+
       if (term.isMainType) {
         rtnTermInfo.menu = 'Neoplasm';
         rtnTermInfos.push(rtnTermInfo);
@@ -118,20 +136,46 @@ class DiseaseReporter extends Transform {
           termClone.parentName = parent.displayName ? parent.displayName : parent.preferredName;
           rtnTermInfos.push(termClone);
         });
-      } else if (term.hasSubjectOfAssociation("Disease_Is_Stage") || term.hasSubjectOfAssociation("Disease_Is_Grade")) {      
+      } else if (term.hasSubjectOfAssociation("Disease_Is_Stage") || term.hasSubjectOfAssociation("Disease_Is_Grade")) {
         rtnTermInfo.menu = 'Stage or Grade';
-        //The parents of stages are odd.  Where a subtype may have specific stages should we mix all the stages when a parent
-        //is selected?  That may be UI logic that determines all the stages to fetch and which to filter.
+
+        //A stage may belong to one or more "simplified" names.  For example, "Stage X Disease Y AJCC v6" & "Stage X Disease Y AJCC v7"
+        //would roll up into a "Stage X Disease Y".  
+        
+        let stageMenus = term.filterSynonyms('CTRP', 'SY').map(s => s.text);
+
+        if (stageMenus.length == 0) {
+          logger.info(`Missing Simple Stage: ${rtnTermInfo.termID}`)
+          //LOG NO MENUS
+          rtnTermInfo.menu = 'Stage or Grade - NO SIMPLE MENU';
+          
+          //In the case of a stage without a simplified menu, just use its display name.
+          stageMenus = [ rtnTermInfo.displayName ];
+        }
+        
         if (mainParents.length > 0) {
-          mainParents.forEach((parent) => {
-            let termClone = _.clone(rtnTermInfo);
-            termClone.parentID = parent.entityID;
-            termClone.parentName = parent.displayName ? parent.displayName : parent.preferredName;
-            rtnTermInfos.push(termClone);
+          //The parents of stages are odd.  Where a subtype may have specific stages should we mix all the stages when a parent
+          //is selected?  That may be UI logic that determines all the stages to fetch and which to filter.
+
+          stageMenus.forEach((stg) => {
+            rtnTermInfo.displayName = stg; //Swap out simplified name
+            //Loop over parents
+            mainParents.forEach((parent) => {
+              let termClone = _.clone(rtnTermInfo);
+              termClone.parentID = parent.entityID;
+              termClone.parentName = parent.displayName ? parent.displayName : parent.preferredName;
+              rtnTermInfos.push(termClone);
+            });
           });
         } else {
-          rtnTermInfo.menu = 'Stage or Grade - NO PARENTS';
-          rtnTermInfos.push(rtnTermInfo);          
+          stageMenus.forEach((stg) => {
+            let termClone = _.clone(rtnTermInfo);
+            termClone.displayName = stg;
+            if (rtnTermInfo.menu != 'Stage or Grade - NO SIMPLE MENU') {
+              termClone.menu = 'Stage or Grade - NO PARENTS';
+            }
+            rtnTermInfos.push(termClone);
+          });
         }
       } else {
         rtnTermInfo.menu = 'Neoplasm';
@@ -170,6 +214,11 @@ class DiseaseReporter extends Transform {
         });
         return done(null, rtnTermInfos);
       }
+
+      if (term.conceptStatus == "Obsolete_Concept" || term.conceptStatus == "Retired_Concept") {
+        logger.info(`Skipping Obsolete or Retired Term (${term.entityID}) ${term.preferredName}`);
+        return done(null, []);
+      }      
 
       if (term.isSemanticType("Neoplastic Process")) {
         //Call neoplastic process specific code and stop processing this term
@@ -238,7 +287,7 @@ class DiseaseReporter extends Transform {
     
     async.eachLimit(
       trialDiseases,
-      10,
+      20,
       (disease, next) => {
         //fetch disease
         this._getDiseaseInfo(disease, (err, diseaseInfos) => {

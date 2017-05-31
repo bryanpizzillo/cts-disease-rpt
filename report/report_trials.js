@@ -110,9 +110,10 @@ class TrialsReporter {
       .pipe(ls)
       .on("error", (err) => { logger.error(err); })
       .pipe(et)
-      .on("error", (err) => { logger.error(err); })      
-      .pipe(rm)
-      .on("error", (err) => { logger.error(err); })      
+      .on("error", (err) => { logger.error(err); })
+      //Skipping Remapping Trials      
+      //.pipe(rm)
+      //.on("error", (err) => { logger.error(err); })      
       .pipe(dmr)
       .on("error", (err) => { logger.error(err); })
       //.pipe(gs)
@@ -170,7 +171,8 @@ class TrialsReporter {
       
       let stream = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + "fltmenudiseases"));
 
-      let grouped = _.groupBy(trialdiseases, disease => disease[4] != '' ? (disease[4] + '/' + disease[1]) : disease[1]);
+      //let grouped = _.groupBy(trialdiseases, disease => disease[4] != '' ? (disease[4] + '/' + disease[1]) : disease[1]);
+      let grouped = _.groupBy(trialdiseases, disease => disease[5] != '' ? (disease[5] + '/' + disease[2]) : disease[2]);
 
       _.each(grouped, (diseaseGroup, termID) => { //Note, diseaseGroup,termID is value,key
           //Assume disease Group always has at least one element

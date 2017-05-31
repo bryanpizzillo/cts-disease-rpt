@@ -1,7 +1,7 @@
 const _                     = require("lodash");
 const Logger                = require("../logger");
 const NCIThesaurusTerm      = require("./nci_thesaurus_term");
-const https                 = require("https");
+const request               = require('request');
 const AbstractLexEVSClient  = require("./base_lexevs_client");
 
 let logger = new Logger({name: "lex-evs-client"});
@@ -15,6 +15,11 @@ class LexEVSClient extends AbstractLexEVSClient {
 
   constructor(host = "lexevscts2.nci.nih.gov") {
     super(host);
+    this.baseRequest = request.defaults({
+      forever: true,
+      json:true,
+      pool: {maxSockets: 3}
+    });
   }
 
   _buildUrl(codeSystem, codeSystemVersion, method) {
@@ -23,8 +28,6 @@ class LexEVSClient extends AbstractLexEVSClient {
       url += `/version/${codeSystemVersion}`;
     }
     url += `${method}?format=json`;
-
-    
 
     return url;
   }
@@ -43,35 +46,21 @@ class LexEVSClient extends AbstractLexEVSClient {
     //EX URL: https://lexevscts2.nci.nih.gov/lexevscts2/codesystem/NCI_Thesaurus/version/17.01e/entity/C16357?format=json
     let url = this._buildUrl(codeSystem, codeSystemVersion, `/entity/${entityID}`);
 
-      https.get(url, (res) => {
+    this.baseRequest.get(
+      {
+        url: url
+      }, (err, res, lexObj) => {
 
-        if (res.statusCode == 404) {
-          return done(null,null);
-        } else if (res.statusCode != 200) {                    
+        if (err) {
+          return done(err);
+        } else if (res.statusCode == 404) {
+          return done (null, null);
+        } else if (res.statusCode != 200) {          
           return done(new Error(`Invalid Response code (${res.statusCode}) from LexEVS for entity ${entityID}: ${url}`));
-        }
-
-        let content = '';
-
-        //Read from stream
-        res.on('data', (chunk) => content += chunk);
-        //... until done, then process the content.
-        res.on('end', () => {
-            
-            let rawObj = null;
-            
-            //Parse can throw, so we handle the exception and bail if 
-            //it did not work.
-            try {
-              rawObj = JSON.parse(content);
-            } catch (err) {
-              //TODO: add additional info to the error.
-              return done(err);
-            }
-            done(null, rawObj);
-        });
-        //TODO: add additional info to the error.
-      }).on('error', done);    
+        } else {
+          return done(null, lexObj);
+        }      
+    })    
   }
 
   /**
@@ -88,33 +77,53 @@ class LexEVSClient extends AbstractLexEVSClient {
     //maxtoreturn hack to make sure we get all associations in one call.
     let url = this._buildUrl(codeSystem, codeSystemVersion, `/entity/${entityID}/subjectof`) + "&maxtoreturn=1000";
 
-    https.get(url, (res) => {
+    this.baseRequest.get(
+      {
+        url: url,
+        forever: true,
+        json:true
+      }, (err, res, lexObj) => {
 
-      if (res.statusCode != 200) {          
-        return done(new Error(`Invalid Response code (${res.statusCode}) from LexEVS for entity ${entityID}: ${url}`));
-      }
+        if (err) {
+          return done(err);
+        } else if (res.statusCode != 200) {          
+          return done(new Error(`Invalid Response code (${res.statusCode}) from LexEVS for entity ${entityID}: ${url}`));
+        } else {
+          return done(null, lexObj);
+        }      
+    })    
 
-      let content = '';
+  }
 
-      //Read from stream
-      res.on('data', (chunk) => content += chunk);
-      //... until done, then process the content.
-      res.on('end', () => {
-          
-          let rawObj = null;
-          
-          //Parse can throw, so we handle the exception and bail if 
-          //it did not work.
-          try {
-            rawObj = JSON.parse(content);
-          } catch (err) {
-            //TODO: add additional info to the error.
-            return done(err);
-          }
-          done(null, rawObj);
-      });
-      //TODO: add additional info to the error.
-    }).on('error', done);    
+  /**
+   * Calls the children endpoint
+   * 
+   * @param {any} codeSystem
+   * @param {any} codeSystemVersion
+   * @param {any} entityID
+   * @param {any} done
+   * 
+   * @memberOf LexEVSClient
+   */
+  getChildren(codeSystem, codeSystemVersion, entityID, done) {
+    //maxtoreturn hack to make sure we get all associations in one call.
+    let url = this._buildUrl(codeSystem, codeSystemVersion, `/entity/${entityID}/children`) + "&maxtoreturn=1000";
+
+    this.baseRequest.get(
+      {
+        url: url,
+        forever: true,
+        json:true
+      }, (err, res, lexObj) => {
+
+        if (err) {
+          return done(err);
+        } else if (res.statusCode != 200) {          
+          return done(new Error(`Invalid Response code (${res.statusCode}) from LexEVS for entity ${entityID}: ${url}`));
+        } else {
+          return done(null, lexObj);
+        }      
+    })    
 
   }
 

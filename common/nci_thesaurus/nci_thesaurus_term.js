@@ -1,5 +1,6 @@
 const _                   = require("lodash");
 const Logger              = require("../logger");
+const StageMap            = require("./stage_map.json");
 
 let logger = new Logger({name: "nci-thesaurus-term"});
 
@@ -53,7 +54,7 @@ class NCIThesaurusTerm {
    */
   hasSubjectOfAssociation(assocType) {
     if (!(this.subjectOfInfo instanceof Array)) {
-      throw new Exception(`SubjectOf associations have not been loaded for term ${this.entityID}`);
+      throw new Error(`SubjectOf associations have not been loaded for term ${this.entityID}`);
     }
 
     return _.some(this.subjectOfInfo, (assoc) => {
@@ -125,6 +126,40 @@ class NCIThesaurusTerm {
   }
 
   /**
+   * Adds in LexEVS Children information
+   * 
+   * @param {any} lexEVSObj
+   * 
+   * @memberOf NCIThesaurusTerm
+   */
+  addLexEVSChildren(lexEVSObj) {
+    
+    if (
+      lexEVSObj["EntityDirectory"] 
+      && lexEVSObj["EntityDirectory"]["complete"] 
+      && lexEVSObj["EntityDirectory"]["complete"] != "COMPLETE") {
+        
+        throw new Error("Failed to get all children");
+    } 
+
+    if (lexEVSObj["EntityDirectory"] && lexEVSObj["EntityDirectory"]["entry"]) {
+      this.children = lexEVSObj.EntityDirectory.entry.map((entry) => {
+        let id = entry.name.name;
+        let name = entry.knownEntityDescription[0].designation;
+
+        return {
+          id: id,
+          name: name
+        };
+      });
+    } else {
+      //TODO: Are there times where these would be empty?
+      //At least make the array empty to know that we loaded it.
+      this.children = [];
+    }
+  }
+
+  /**
    * Deserializes a term from a JSON object as returned by the LexEVS.
    * 
    * @static
@@ -142,10 +177,21 @@ class NCIThesaurusTerm {
     let preferredName = NCIThesaurusTerm._extractFirstSimpleProperty(namedEntity, "Preferred_Name");
     let conceptStatus = NCIThesaurusTerm._extractFirstSimpleProperty(namedEntity, "Concept_Status");
     let semanticTypes = NCIThesaurusTerm._extractSimpleProperty(namedEntity, "Semantic_Type");
-    let parentIDs = NCIThesaurusTerm._extractParentTermIDs(namedEntity);
-
+    let parentIDs = NCIThesaurusTerm._extractParentTermIDs(namedEntity);    
 
     let synonyms = NCIThesaurusTerm._extractSynonyms(namedEntity);
+
+    //HACK: For pretending there is stage information
+    if (StageMap[entityID]) {
+      StageMap[entityID].forEach((name) => {
+        synonyms.push({
+          text: name,
+          source: 'CTRP',
+          type: 'SY',
+          sourceCode: ''
+        })
+      })
+    }
 
     let term = new NCIThesaurusTerm(entityID, preferredName, displayName, conceptStatus, synonyms,  semanticTypes, parentIDs); 
     return term;
@@ -263,6 +309,8 @@ class NCIThesaurusTerm {
             sourceCode: sourceCode
           };
         });
+
+    
 
     return synonyms;
   }

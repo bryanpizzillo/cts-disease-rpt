@@ -97,9 +97,30 @@ class NCIThesaurusLookup {
           } else {
             return next(null);
           }
-        }
+        }/*,
+        (term, next) => {
+          if (term) {
+            //I assume if a term exists that its subjectOf will as well.
+            this.client.getChildren(
+              CODE_SYSTEM_NAME,
+              this.codeSystemVersion,
+              entityID,
+              (err, rawObj) => {
+                if (err) {
+                  return next(err);
+                }
+
+                term.addLexEVSChildren(rawObj);
+                return next(null, term);
+              }
+            );
+          } else {
+            return next(null);
+          }
+        }  */      
       ], (err, term) => {
         if (err) {
+          logger.error(`Term ${entityID} encountered error: ${err.message}`)
           return done(err);
         }
 
