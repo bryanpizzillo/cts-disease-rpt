@@ -146,7 +146,6 @@ class DiseaseReporter extends Transform {
           //in use maintaining order, then set mainParents equal to the term that term. 
           let usedPLR = _.intersectionBy(this.PARENTS_OF_LAST_RESORT_MAP, mainParents, 'entityID')[0];
           mainParents = [ _.find(mainParents, ["entityID", usedPLR.entityID]) ];
-          console.log(mainParents);
         }
       }
 
