@@ -1,6 +1,7 @@
 const fs                  = require("fs");
 const path                = require("path");
 const async               = require("async");
+const moment              = require('moment');
 const _                   = require("lodash");
 const byline              = require('byline');
 const JSONStream          = require("JSONStream");
@@ -124,13 +125,16 @@ class TrialsReporter {
       .on("error", (err) => { logger.error(err); })
       .on("finish", (err, res) => { 
 
-        
-        this._outputDiseaseMenus(dmr, () => {
+        async.waterfall([
+          (next) => {this._outputDiseaseMenuReports(dmr, next);},
+          (next) => {this._outputDiseaseMenus(dmr, next);}
+        ],(err) => {
           let termCacheCount = this.thesaurusLookup.getNumCachedTerms();
           logger.info(`Terms Queried: ${termCacheCount}`);
 
           callback();
         });
+
         /*
         fs.writeFile(
           path.join(os.homedir(), TRIALS_FILEPATH + "trialdiseases"), 
@@ -143,7 +147,137 @@ class TrialsReporter {
       });
   }
 
-  _outputDiseaseMenus(dmr, callback) {
+  _outputDiseaseMenus(dmr, done) {
+    logger.info("Outputting disease menu json...");
+
+    let trialdiseases = dmr.getReportedDiseases();
+    //Makes multi dim array
+    let grouped = _.groupBy(trialdiseases, disease => disease[5] != '' ? (disease[5] + '/' + disease[2]) : disease[2]);
+    let uniqDiseases = [];
+
+    _.each(grouped, (diseaseGroup, termID) => { //Note, diseaseGroup,termID is value,key
+      //Assume disease Group always has at least one element
+
+      let diseaseInfo = { 
+        "menu": diseaseGroup[0][1],
+        "termID": diseaseGroup[0][2],
+        //No Status
+        "displayName": diseaseGroup[0][4],
+        "parentID": diseaseGroup[0][5],
+        "parentName": diseaseGroup[0][6]
+        //No Trial IDs
+      };
+      
+      uniqDiseases.push(diseaseInfo);
+    });
+
+    let timestamp = moment().format('YYYYMMDD_hhmmss');
+    let menu_dir = "menu_" + timestamp;
+    let menu_path = path.join(os.homedir(), TRIALS_FILEPATH.replace("trials.out", menu_dir));
+//{"key":"Therapeutic Conventional Surgery","count":266,"codes":["c65008"],"synonyms":[]},{"key":"Survey Administration","count":128,"codes":["c64252"],"synonyms":[]},{"key":"Conventional Surgery","count":22,"codes":["c16079"],"synonyms":[]},{"key":"Pancreatic Surgical Procedure","count":9,"codes":["c116653"],"synonyms":[]},{"key":"Image-Guided Surgery","count":7,"codes":["c116506"],"synonyms":[]},{"key":"Robot-Assisted Laparoscopic Surgery","count":7,"codes":["c116509"],"synonyms":[]},{"key":"Surgical Procedure","count":7,"codes":["c15329"],"synonyms":[]},{"key":"Transoral Robotic Surgery","count":5,"codes":["c94439"],"synonyms":[]},{"key":"Laser Surgery","count":4,"codes":["c15268"],"synonyms":[]},{"key":"Reconstructive Surgery","count":4,"codes":["c25351"],"synonyms":[]}]}
+
+    async.waterfall([
+      //Make the menu folder.
+      (next) => { fs.mkdir(menu_path, next); },
+      //Build the root menu and spitout the JSON.
+      (next) => {
+        this._saveCancerRoot(uniqDiseases, menu_path, next);
+      },
+      //Build all sub menus
+      (next) => {
+        this._saveCancerSubTypes(uniqDiseases, menu_path, next);
+      }
+    ],
+    done
+    )
+  }
+
+  _saveCancerRoot(uniqDiseases, menu_path, done) {
+      //These are the items with no parent since the trial was tagged against
+      //a top level parent.
+      let directlyIndexedParents = _(uniqDiseases)
+        .filter(mi => (mi.menu == "Neoplasm" && mi.parentID == ''))
+        .value()
+        .map(mi => {
+          return {
+            termID: mi.termID,
+            displayName: mi.displayName            
+          }
+        });
+
+      //These are the menu items with parents where the trials where tagged against a child,      
+      let parentsForIndexedChildren = _(uniqDiseases)
+        .filter(mi => (mi.menu == "Neoplasm" && mi.parentID != ''))
+        .value()
+        .map(mi => {
+          return {
+            termID: mi.parentID,
+            displayName: mi.parentName
+          }
+        });
+
+      //Combine the two
+      let parents = _.unionBy(directlyIndexedParents, parentsForIndexedChildren, 'termID');
+
+      //Unique the list and convert into what we want.
+      let rootMenu = _.unionBy(parents, 'termID')
+        .map(mi => {
+          return {
+            "key": mi.displayName,
+            "codes": [ mi.termID ]
+          }
+        });
+
+      let root_menu = JSON.stringify(rootMenu);
+      
+      fs.writeFile(path.join(menu_path, "cancer_root.json"), root_menu, (err) => {
+        if (err) {
+          return done(err);
+        } else {
+          return done();
+        }
+      });
+  }
+
+  _saveCancerSubTypes(uniqDiseases, menu_path, done) {
+      let groupedMenus = _(uniqDiseases)
+        .filter(mi => { return (mi.menu == "Neoplasm" && mi.parentID != '')} )
+        .groupBy('parentID')
+        .value();
+
+      async.each(
+        _.keys(groupedMenus),
+        (parentID, cb) => {
+          this._saveCancerSubTypeMenu(parentID, groupedMenus[parentID], menu_path, cb);
+        },
+        (err) => {
+          if (err) {
+            return done(err);
+          } else {
+            return done();
+          }
+        }
+      );
+  }
+
+  _saveCancerSubTypeMenu(parentID, menuItems, menu_path, done) {
+    let menu = JSON.stringify(menuItems.map(mi => {
+      return {
+        "key": mi.displayName,
+        "codes": [ mi.termID ]
+      }
+    }));
+    
+    fs.writeFile(path.join(menu_path, `cancer_${parentID}.json`), menu, (err) => {
+      if (err) {
+        return done(err);
+      } else {
+        return done();
+      }
+    });
+  }
+
+  _outputDiseaseMenuReports(dmr, callback) {
       logger.info("Outputting disease menus...");
 
       //Get Diseases

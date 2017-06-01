@@ -6,13 +6,18 @@ const async               = require("async");
 
 let logger = new Logger({ name: "supplement-stream" });
 
-
-const PARENTS_OF_LAST_RESORT  = ['C4741', 'C3263', 'C7062', 'C2991'];
-const PARENTS_OF_LAST_RESORT_MAP  = [
-  { entityID: 'C4741'}, 
-  { entityID: 'C3263'}, 
-  { entityID: 'C7062'}, 
-  { entityID: 'C2991'}
+//Order from best choice to least best, so order matters
+const PARENTS_OF_LAST_RESORT  = [
+  //Carcinoma
+  'C2916',
+  //Neoplasm by Special Category
+  'C7062',
+  //Neoplasm by Site
+  'C3263',  
+  //Neoplasm by Morphology
+  'C4741',
+  //Disease or Disorder
+  'C2991'
 ];
 
 /**
@@ -30,6 +35,15 @@ class DiseaseReporter extends Transform {
 
     //Create hashes
     this.diseases = [];
+
+    //So we build the map once and do not have to iterate over the array
+    //each time we want to use it.
+    this.PARENTS_OF_LAST_RESORT_MAP = PARENTS_OF_LAST_RESORT.map(p => {
+      return {
+        entityID: p
+      }
+    });
+
   }
 
   getReportedDiseases() {
@@ -60,7 +74,7 @@ class DiseaseReporter extends Transform {
           }
 
           //Check if we are a neoplastic process (or isMainType, in the case of Disease or Disorder)
-          if (parentTerm.isSemanticType('Neoplastic Process') || parentTerm.isMainType) {
+          if (parentTerm.isSemanticType('Neoplastic Process') || term.isSemanticType("Disease or Syndrome") || parentTerm.isMainType) {
             //This is a neoplastic process, so we are a candidate for being a main type,
             if (parentTerm.isMainType && !_.some(mainParents, ["entityID", parentTerm.entityID])) {
               mainParents.push(parentTerm);
@@ -121,10 +135,19 @@ class DiseaseReporter extends Transform {
       //Deal with Parents of last resort
       if (mainParents.length > 0) {
                 
-        let filteredParents = _.differenceBy(mainParents, PARENTS_OF_LAST_RESORT_MAP, 'entityID');
+        let filteredParents = _.differenceBy(mainParents, this.PARENTS_OF_LAST_RESORT_MAP, 'entityID');
+
         if (filteredParents.length > 0) {
+          //Use the best parents
           mainParents = filteredParents;
-        } // else use Parent of Last Resort.  Or not.
+        } else {
+          //Use the best Parent of last resort. 
+          //We are guaranteed to have at least one PLR if we are in this block.  We find the PLRs
+          //in use maintaining order, then set mainParents equal to the term that term. 
+          let usedPLR = _.intersectionBy(this.PARENTS_OF_LAST_RESORT_MAP, mainParents, 'entityID')[0];
+          mainParents = [ _.find(mainParents, ["entityID", usedPLR.entityID]) ];
+          console.log(mainParents);
+        }
       }
 
       if (term.isMainType) {
@@ -220,7 +243,7 @@ class DiseaseReporter extends Transform {
         return done(null, []);
       }      
 
-      if (term.isSemanticType("Neoplastic Process")) {
+      if (term.isSemanticType("Neoplastic Process") || term.isSemanticType("Disease or Syndrome")) {
         //Call neoplastic process specific code and stop processing this term
         return this._getNeoplasticProcess(disease, term, done);
       } else { 
@@ -242,8 +265,7 @@ class DiseaseReporter extends Transform {
           };
           rtnTermInfos.push(rtnTermInfo);
         }
-        else if (
-          term.isSemanticType("Disease or Syndrome") || 
+        else if (           
           term.isSemanticType("Sign or Symptom") || 
           term.isSemanticType("Mental or Behavioral Dysfunction")
         ) {
