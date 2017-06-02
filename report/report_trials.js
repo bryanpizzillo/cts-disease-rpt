@@ -218,6 +218,7 @@ class TrialsReporter {
 
       //Combine the two
       let parents = _.unionBy(directlyIndexedParents, parentsForIndexedChildren, 'termID');
+      parents = _.sortBy(parents, 'displayName');
 
       //Unique the list and convert into what we want.
       let rootMenu = _.unionBy(parents, 'termID')
@@ -261,7 +262,7 @@ class TrialsReporter {
   }
 
   _saveCancerSubTypeMenu(parentID, menuItems, menu_path, done) {
-    let menu = JSON.stringify(menuItems.map(mi => {
+    let menu = JSON.stringify(_.sortBy(menuItems, 'displayName').map(mi => {
       return {
         "key": mi.displayName,
         "codes": [ mi.termID ]

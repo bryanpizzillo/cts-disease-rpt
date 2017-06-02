@@ -140,8 +140,12 @@ class DiseaseReporter extends Transform {
         if (filteredParents.length > 0) {
           //Use the best parents
           mainParents = filteredParents;
-        } else {
-          //Use the best Parent of last resort. 
+        } else if (term.isMainType) {
+          //No non-PLR parents, but we are a menu item so no need for PLRs
+          mainParents = [];
+        } else { 
+          //Use the best Parent of last resort.  
+          //to put this in a PLR.  
           //We are guaranteed to have at least one PLR if we are in this block.  We find the PLRs
           //in use maintaining order, then set mainParents equal to the term that term. 
           let usedPLR = _.intersectionBy(this.PARENTS_OF_LAST_RESORT_MAP, mainParents, 'entityID')[0];
