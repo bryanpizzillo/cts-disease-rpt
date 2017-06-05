@@ -40,7 +40,7 @@ const CLEANSED_EXT = ".03.cleansed";
 class TrialsReporter {
 
   constructor() {
-    let client = new LexEVSClient();
+    let client = new LexEVSClient(path.join(os.homedir(), TRIALS_FILEPATH.replace("trials.out", "evs_cache")));
     this.thesaurusLookup = new NCIThesaurusLookup(client, "17.04d");
   }
 
@@ -126,6 +126,7 @@ class TrialsReporter {
       .on("finish", (err, res) => { 
 
         async.waterfall([
+          (next) => {dmr.},
           (next) => {this._outputDiseaseMenuReports(dmr, next);},
           (next) => {this._outputDiseaseMenus(dmr, next);}
         ],(err) => {
@@ -147,10 +148,16 @@ class TrialsReporter {
       });
   }
 
+  /**
+   * This outputs the Primary Cancer, Sub-types, stages and findings/abnormalities
+   * @param {*} dmr 
+   * @param {*} done 
+   */
   _outputDiseaseMenus(dmr, done) {
     logger.info("Outputting disease menu json...");
 
     let trialdiseases = dmr.getReportedDiseases();
+
     //Makes multi dim array
     let grouped = _.groupBy(trialdiseases, disease => disease[5] != '' ? (disease[5] + '/' + disease[2]) : disease[2]);
     let uniqDiseases = [];
@@ -173,8 +180,7 @@ class TrialsReporter {
 
     let timestamp = moment().format('YYYYMMDD_hhmmss');
     let menu_dir = "menu_" + timestamp;
-    let menu_path = path.join(os.homedir(), TRIALS_FILEPATH.replace("trials.out", menu_dir));
-//{"key":"Therapeutic Conventional Surgery","count":266,"codes":["c65008"],"synonyms":[]},{"key":"Survey Administration","count":128,"codes":["c64252"],"synonyms":[]},{"key":"Conventional Surgery","count":22,"codes":["c16079"],"synonyms":[]},{"key":"Pancreatic Surgical Procedure","count":9,"codes":["c116653"],"synonyms":[]},{"key":"Image-Guided Surgery","count":7,"codes":["c116506"],"synonyms":[]},{"key":"Robot-Assisted Laparoscopic Surgery","count":7,"codes":["c116509"],"synonyms":[]},{"key":"Surgical Procedure","count":7,"codes":["c15329"],"synonyms":[]},{"key":"Transoral Robotic Surgery","count":5,"codes":["c94439"],"synonyms":[]},{"key":"Laser Surgery","count":4,"codes":["c15268"],"synonyms":[]},{"key":"Reconstructive Surgery","count":4,"codes":["c25351"],"synonyms":[]}]}
+    let menu_path = path.join(os.homedir(), TRIALS_FILEPATH.replace("trials.out", menu_dir));    
 
     async.waterfall([
       //Make the menu folder.
@@ -186,12 +192,21 @@ class TrialsReporter {
       //Build all sub menus
       (next) => {
         this._saveCancerSubTypes(uniqDiseases, menu_path, next);
+      },
+      (next) => {
+        this._saveCancerStages(uniqDiseases, menu_path, next);
       }
     ],
     done
     )
   }
 
+  /**
+   * Build and Save Cancer Root Menu
+   * @param {*} uniqDiseases 
+   * @param {*} menu_path 
+   * @param {*} done 
+   */
   _saveCancerRoot(uniqDiseases, menu_path, done) {
       //These are the items with no parent since the trial was tagged against
       //a top level parent.
@@ -240,6 +255,12 @@ class TrialsReporter {
       });
   }
 
+  /**
+   * Build and save Cancer Sub-types menu
+   * @param {*} uniqDiseases 
+   * @param {*} menu_path 
+   * @param {*} done 
+   */
   _saveCancerSubTypes(uniqDiseases, menu_path, done) {
       let groupedMenus = _(uniqDiseases)
         .filter(mi => { return (mi.menu == "Neoplasm" && mi.parentID != '')} )
@@ -261,6 +282,13 @@ class TrialsReporter {
       );
   }
 
+  /**
+   * Outputs a single Sub Type Menu
+   * @param {*} parentID 
+   * @param {*} menuItems 
+   * @param {*} menu_path 
+   * @param {*} done 
+   */
   _saveCancerSubTypeMenu(parentID, menuItems, menu_path, done) {
     let menu = JSON.stringify(_.sortBy(menuItems, 'displayName').map(mi => {
       return {
@@ -277,6 +305,14 @@ class TrialsReporter {
       }
     });
   }
+
+  _saveCancerStages(uniqDiseases, menu_path, done) {
+
+    
+
+    done();
+  }
+
 
   _outputDiseaseMenuReports(dmr, callback) {
       logger.info("Outputting disease menus...");

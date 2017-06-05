@@ -30,6 +30,7 @@ class NCIThesaurusLookup {
     this.client = client;
     this.codeSystemVersion = version;
     this.termCache = {};
+    this.fetchList = []; 
     this.indexCounter = 0;
   }
 
@@ -54,83 +55,94 @@ class NCIThesaurusLookup {
 
     if (!this.termCache[entityID]) {
 
-      async.waterfall([
-        (next) => {
-          this.client.readEntity(
-            CODE_SYSTEM_NAME,
-            this.codeSystemVersion,
-            entityID,
-            (err, rawObj) => {
-              if (err) {
-                return next(err);
-              }
+      //Add it to our list so we do not try and fetch it.
+      if (!_.includes(this.fetchList, entityID)) {
+        this.fetchList.push(entityID);
 
-              if (rawObj) {
-                let term = NCIThesaurusTerm.DeserializeFromLexEVS(rawObj);
-                //MOCK OF PRIMARY TYPES
-                if (MainTypesMock[term.entityID]) {
-                  term.isMainType = true;
+        async.waterfall([
+          (next) => {
+            this.client.readEntity(
+              CODE_SYSTEM_NAME,
+              this.codeSystemVersion,
+              entityID,
+              (err, rawObj) => {
+                if (err) {
+                  return next(err);
                 }
-                return next(null, term);
-              } else {
-                return next(null, null);
+
+                if (rawObj) {
+                  let term = NCIThesaurusTerm.DeserializeFromLexEVS(rawObj);
+                  //MOCK OF PRIMARY TYPES
+                  if (MainTypesMock[term.entityID]) {
+                    term.isMainType = true;
+                  }
+                  return next(null, term);
+                } else {
+                  return next(null, null);
+                }
               }
+            );
+          },
+          (term, next) => {
+            if (term) {
+              //I assume if a term exists that its subjectOf will as well.
+              this.client.getSubjectOf(
+                CODE_SYSTEM_NAME,
+                this.codeSystemVersion,
+                entityID,
+                (err, rawObj) => {
+                  if (err) {
+                    return next(err);
+                  }
+
+                  term.addLexEVSSubjectOf(rawObj);
+                  return next(null, term);
+                }
+              );
+            } else {
+              return next(null, null);
             }
-          );
-        },
-        (term, next) => {
-          if (term) {
-            //I assume if a term exists that its subjectOf will as well.
-            this.client.getSubjectOf(
-              CODE_SYSTEM_NAME,
-              this.codeSystemVersion,
-              entityID,
-              (err, rawObj) => {
-                if (err) {
-                  return next(err);
+          }/*,
+          (term, next) => {
+            if (term) {
+              //I assume if a term exists that its subjectOf will as well.
+              this.client.getChildren(
+                CODE_SYSTEM_NAME,
+                this.codeSystemVersion,
+                entityID,
+                (err, rawObj) => {
+                  if (err) {
+                    return next(err);
+                  }
+
+                  term.addLexEVSChildren(rawObj);
+                  return next(null, term);
                 }
+              );
+            } else {
+              return next(null);
+            }
+          }  */      
+        ], (err, term) => {
+          _.pull(this.fetchList, entityID);
 
-                term.addLexEVSSubjectOf(rawObj);
-                return next(null, term);
-              }
-            );
-          } else {
-            return next(null);
+          if (err) {
+            logger.error(`Term ${entityID} encountered error: ${err.message}`)
+            return done(err);
           }
-        }/*,
-        (term, next) => {
-          if (term) {
-            //I assume if a term exists that its subjectOf will as well.
-            this.client.getChildren(
-              CODE_SYSTEM_NAME,
-              this.codeSystemVersion,
-              entityID,
-              (err, rawObj) => {
-                if (err) {
-                  return next(err);
-                }
 
-                term.addLexEVSChildren(rawObj);
-                return next(null, term);
-              }
-            );
-          } else {
-            return next(null);
-          }
-        }  */      
-      ], (err, term) => {
-        if (err) {
-          logger.error(`Term ${entityID} encountered error: ${err.message}`)
-          return done(err);
-        }
+          //Term may be null it is was not found -- that's ok.
 
-        //Term may be null it is was not found -- that's ok.
-
-        //Store the term in the cache and "return" the term.
-        this.termCache[entityID] = term;
-        done(null, this.termCache[entityID]);
-      })
-      
+          //Store the term in the cache and "return" the term.
+          this.termCache[entityID] = term;
+          done(null, this.termCache[entityID]);
+        })
+      } else {
+        //Wait for it to be fetched.
+        setTimeout(() => {
+          this.getTerm(entityID, done);
+        }, 50);
+      }
 
     } else {
       done(null, this.termCache[entityID]);
