@@ -126,7 +126,6 @@ class TrialsReporter {
       .on("finish", (err, res) => { 
 
         async.waterfall([
-          (next) => {dmr.},
           (next) => {this._outputDiseaseMenuReports(dmr, next);},
           (next) => {this._outputDiseaseMenus(dmr, next);}
         ],(err) => {
