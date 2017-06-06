@@ -305,11 +305,51 @@ class TrialsReporter {
     });
   }
 
+  /**
+   * Outputs a single Sub Type Menu
+   * @param {*} parentID 
+   * @param {*} menuItems 
+   * @param {*} menu_path 
+   * @param {*} done 
+   */
+  _saveCancerStageMenu(parentID, menuItems, menu_path, done) {
+    let menu = JSON.stringify(_.sortBy(menuItems, 'displayName').map(mi => {
+      return {
+        "key": mi.displayName,
+        "codes": [ mi.termID ]
+      }
+    }));
+    
+    fs.writeFile(path.join(menu_path, `stage_${parentID}.json`), menu, (err) => {
+      if (err) {
+        return done(err);
+      } else {
+        return done();
+      }
+    });
+  }  
+
   _saveCancerStages(uniqDiseases, menu_path, done) {
 
-    
+    //Need to keep in mind simplified menus.
+      let groupedMenus = _(uniqDiseases)
+        .filter(mi => { return (mi.menu == "Stage or Grade" || mi.menu == "Stage or Grade - NO SIMPLE MENU")} )
+        .groupBy('parentID')
+        .value();
 
-    done();
+      async.each(
+        _.keys(groupedMenus),
+        (parentID, cb) => {
+          this._saveCancerStageMenu(parentID, groupedMenus[parentID], menu_path, cb);
+        },
+        (err) => {
+          if (err) {
+            return done(err);
+          } else {
+            return done();
+          }
+        }
+      );
   }
 
 
@@ -319,7 +359,7 @@ class TrialsReporter {
       //Get Diseases
       let trialdiseases = dmr.getReportedDiseases();
       
-      let stream = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + "menudiseases"));
+      let stream = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + "menudiseases.txt"));
 
       trialdiseases.forEach((diseaseInfo) => {
         stream.write(diseaseInfo.join("|") + "\n");
@@ -339,7 +379,7 @@ class TrialsReporter {
       //Get Diseases
       let trialdiseases = dmr.getReportedDiseases();
       
-      let stream = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + "fltmenudiseases"));
+      let stream = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + "fltmenudiseases.txt"));
 
       //let grouped = _.groupBy(trialdiseases, disease => disease[4] != '' ? (disease[4] + '/' + disease[1]) : disease[1]);
       let grouped = _.groupBy(trialdiseases, disease => disease[5] != '' ? (disease[5] + '/' + disease[2]) : disease[2]);

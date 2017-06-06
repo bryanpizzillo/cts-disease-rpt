@@ -8,6 +8,16 @@ let logger = new Logger({ name: "supplement-stream" });
 
 //Order from best choice to least best, so order matters
 const PARENTS_OF_LAST_RESORT  = [
+  //Germ Cell Tumor
+  'C3708',
+  //Glioma
+  'C3059',
+  //Lymphoma
+  'C3208',
+  //Neuroendocrine Tumor
+  'C3809',
+  //Sarcoma
+  'C9118',
   //Carcinoma
   'C2916',
   //Neoplasm by Special Category
@@ -112,59 +122,145 @@ class DiseaseReporter extends Transform {
 
   }
 
-  _getNeoplasticProcess(disease, term, done) {
+  _filterDiseaseParents(mainParents, isMainType) {
+    let filteredParents = _.differenceBy(mainParents, this.PARENTS_OF_LAST_RESORT_MAP, 'entityID');
 
-    //Identify Parent/Sub-parent
-    //Collect up list of isMainType parents
-    this._getMainParents(term, (err, mainParents) => {
-      if (err) {
-        return done(err);
-      }
+    if (filteredParents.length > 0) {
+      //Use the best parents
+      mainParents = filteredParents;
+    } else if (isMainType) {
+      //No non-PLR parents, but we are a menu item so no need for PLRs
+      mainParents = [];
+    } else { 
+      //Use the best Parent of last resort.  
+      //to put this in a PLR.  
+      //We are guaranteed to have at least one PLR if we are in this block.  We find the PLRs
+      //in use maintaining order, then set mainParents equal to the term that term. 
+      let usedPLR = _.intersectionBy(this.PARENTS_OF_LAST_RESORT_MAP, mainParents, 'entityID')[0];
+      mainParents = [ _.find(mainParents, ["entityID", usedPLR.entityID]) ];
+    }
 
-      let rtnTermInfos = [];
+    return mainParents;
+  }
 
-      let rtnTermInfo = {
-            termID: disease.nci_thesaurus_concept_id,
-            menu: '', //Neoplasm or Stage
-            conceptStatus: term.conceptStatus,
-            displayName: term.displayName ? term.displayName : term.preferredName,
-            parentID: '',
-            parentName: ''            
-      }
+  /**
+   * Gets all non-stage parents
+   * @param {*} term The term to get non-stage parents for
+   * @param {*} depth The current term depth.  Only includes depth of non-stage terms.
+   * @param {*} done 
+   */
+  _findNonStageParents(term, depth, done) {
 
-      //Deal with Parents of last resort
-      if (mainParents.length > 0) {
-                
-        let filteredParents = _.differenceBy(mainParents, this.PARENTS_OF_LAST_RESORT_MAP, 'entityID');
+    let parents = [];
 
-        if (filteredParents.length > 0) {
-          //Use the best parents
-          mainParents = filteredParents;
-        } else if (term.isMainType) {
-          //No non-PLR parents, but we are a menu item so no need for PLRs
-          mainParents = [];
-        } else { 
-          //Use the best Parent of last resort.  
-          //to put this in a PLR.  
-          //We are guaranteed to have at least one PLR if we are in this block.  We find the PLRs
-          //in use maintaining order, then set mainParents equal to the term that term. 
-          let usedPLR = _.intersectionBy(this.PARENTS_OF_LAST_RESORT_MAP, mainParents, 'entityID')[0];
-          mainParents = [ _.find(mainParents, ["entityID", usedPLR.entityID]) ];
+    async.eachLimit(
+      term.parentTermIDs,
+      20,
+      (parentID, cb) => {
+        //Get each immediate parent's term and parents.
+        this.thesaurusLookup.getTerm(parentID, (err, parentTerm) => {
+          if (err) {
+            return cb(err);
+          }
+
+          //Only add it to our parents list if it is not a stage.
+          if (!term.hasSubjectOfAssociation("Disease_Is_Stage") && !term.hasSubjectOfAssociation("Disease_Is_Grade")) {
+            if (!_.some(parents, ["entityID", parentTerm.entityID])) {
+
+              parents.push(
+                {
+                  depth: depth,
+                  parentTerm: parentTerm
+                }
+              );
+              depth = depth + 1;
+            }
+
+            //add all other parents, take this elevator up to the root.
+            this._findNonStageParents(parentTerm, depth, (mperr, ancestors) => {
+              if (mperr) {
+                return cb(mperr);
+              }
+
+              //This list will be filtered not containing any stages
+              ancestors.forEach((ancestor) => {
+                if (!_.some(parents, ["entityID", ancestor.parentTerm.entityID])) {
+                  //ASSUMPTION: A stage would always roll up to a cancer type, and then
+                  //it is that type that can live multiple places in the tree.  I.E. We should
+                  //never have an existing term at a different level of the tree for anything that
+                  //is a depth of 1.  Past the initial type, other parents could live at diffent 
+                  //depths.
+                  parents.push(ancestor);
+                }
+              });
+
+              setTimeout(() => { cb(); });
+            });
+
+          }
+        })
+      },
+      (err) => {
+        if (err) {
+          return done(err);
         }
+        return done(null, parents);
       }
+    );  
 
-      if (term.isMainType) {
-        rtnTermInfo.menu = 'Neoplasm';
-        rtnTermInfos.push(rtnTermInfo);
-        mainParents.forEach((parent) => {
-          let termClone = _.clone(rtnTermInfo);
-          termClone.parentID = parent.entityID;
-          termClone.parentName = parent.displayName ? parent.displayName : parent.preferredName;
-          rtnTermInfos.push(termClone);
-        });
-      } else if (term.hasSubjectOfAssociation("Disease_Is_Stage") || term.hasSubjectOfAssociation("Disease_Is_Grade")) {
-        rtnTermInfo.menu = 'Stage or Grade';
+  }
 
+  /**
+   * 
+   * @param {*} disease 
+   * @param {*} term 
+   * @param {*} done 
+   */
+  _getStage(disease, term, trialDiseases, done) {
+
+
+    let rtnTermInfos = [];
+
+    let rtnTermInfo = {
+          termID: disease.nci_thesaurus_concept_id,
+          menu: 'Stage or Grade', //Neoplasm or Stage
+          conceptStatus: term.conceptStatus,
+          displayName: term.displayName ? term.displayName : term.preferredName,
+          parentID: '',
+          parentName: ''            
+    }
+    
+    async.waterfall([
+      //Get all main parents
+      (next) => { this._getMainParents(term, next) },
+      //Determine what our parents are.
+      (mainParents, next) => {
+
+        if (mainParents.length > 0) {
+          //Get list of parents with parents of last resort removed.  Parents of last resort should not
+          //have stages displayed.
+          let filteredParents = _.differenceBy(mainParents, this.PARENTS_OF_LAST_RESORT_MAP, 'entityID');
+
+          if (filteredParents.length > 0) {
+            //We have a good list of parents.  Of course, these could be primary.
+            next(null, filteredParents);
+          } else {
+            //Here we have a stage that has a parent, but it is a parent of last resort and should not appear in
+            //that menu.  We need to find the all the immediate neoplastic processes that are under the main
+            //parents. (As a term can have multiple parents, it could follow multiple paths.)  Add those terms if
+            //they are not already a disease on the trial, then use those new terms as the parents of this stage.
+            
+            //FOR TESTING, just set parents to none.
+            next(null, []);
+          }
+        } else {
+          //So there is no parent, not even one that is a last resort.  We could add the immediate neoplastic processes
+          //as Neoplasm - No Parent for reporting.  Treat it as stage no parents for now.
+          next(null, []);
+        }
+      },
+      (mainParents, next) => {
+        //We have the correct filtered list of main parents, so no need to deal with that.
         //A stage may belong to one or more "simplified" names.  For example, "Stage X Disease Y AJCC v6" & "Stage X Disease Y AJCC v7"
         //would roll up into a "Stage X Disease Y".  
         
@@ -197,12 +293,52 @@ class DiseaseReporter extends Transform {
           stageMenus.forEach((stg) => {
             let termClone = _.clone(rtnTermInfo);
             termClone.displayName = stg;
-            if (rtnTermInfo.menu != 'Stage or Grade - NO SIMPLE MENU') {
-              termClone.menu = 'Stage or Grade - NO PARENTS';
-            }
+
+            termClone.menu = 'Stage or Grade - NO PARENTS';
+
             rtnTermInfos.push(termClone);
           });
         }
+
+        next(null, rtnTermInfos);        
+      }
+    ], done);
+  }
+
+  _getNeoplasticProcess(disease, term, done) {
+
+    //Identify Parent/Sub-parent
+    //Collect up list of isMainType parents
+    this._getMainParents(term, (err, mainParents) => {
+      if (err) {
+        return done(err);
+      }
+
+      let rtnTermInfos = [];
+
+      let rtnTermInfo = {
+            termID: disease.nci_thesaurus_concept_id,
+            menu: '', //Neoplasm or Stage
+            conceptStatus: term.conceptStatus,
+            displayName: term.displayName ? term.displayName : term.preferredName,
+            parentID: '',
+            parentName: ''            
+      }
+
+      //Deal with Parents of last resort
+      if (mainParents.length > 0) {
+        mainParents = this._filterDiseaseParents(mainParents, term.isMainType);
+      }
+
+      if (term.isMainType) {
+        rtnTermInfo.menu = 'Neoplasm';
+        rtnTermInfos.push(rtnTermInfo);
+        mainParents.forEach((parent) => {
+          let termClone = _.clone(rtnTermInfo);
+          termClone.parentID = parent.entityID;
+          termClone.parentName = parent.displayName ? parent.displayName : parent.preferredName;
+          rtnTermInfos.push(termClone);
+        });      
       } else {
         rtnTermInfo.menu = 'Neoplasm';
         if (mainParents.length > 0) {
@@ -222,7 +358,7 @@ class DiseaseReporter extends Transform {
     });
   }
 
-  _getDiseaseInfo(disease, done) {
+  _getDiseaseInfo(disease, trialDiseases, done) {
     this.thesaurusLookup.getTerm(disease.nci_thesaurus_concept_id, (err, term) => {
       if (err) {
         return done(err);
@@ -248,7 +384,13 @@ class DiseaseReporter extends Transform {
 
       if (term.isSemanticType("Neoplastic Process") || term.isSemanticType("Disease or Syndrome")) {
         //Call neoplastic process specific code and stop processing this term
-        return this._getNeoplasticProcess(disease, term, done);
+
+        if (term.hasSubjectOfAssociation("Disease_Is_Stage") || term.hasSubjectOfAssociation("Disease_Is_Grade")) {
+          return this._getStage(disease, term, trialDiseases, done);
+        } else {
+          return this._getNeoplasticProcess(disease, term, done);
+        }
+
       } else { 
         if (
           term.isSemanticType("Laboratory or Test Result") || 
@@ -315,7 +457,7 @@ class DiseaseReporter extends Transform {
       20,
       (disease, next) => {
         //fetch disease
-        this._getDiseaseInfo(disease, (err, diseaseInfos) => {
+        this._getDiseaseInfo(disease, trialDiseases, (err, diseaseInfos) => {
           if (err) {
             return next(err);
           }
