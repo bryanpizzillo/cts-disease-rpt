@@ -22,6 +22,7 @@ const DiseaseReporter       = require("./stream/disease_reporter");
 const TrialIDReporter       = require("./stream/trialid_reporter");
 const TrialDiseaseReporter  = require("./stream/trial_disease_reporter");
 const DiseaseMenuReporter  = require("./stream/disease_menu_reporter");
+const StageMenuReporter  = require("./stream/stage_menu_reporter");
 
 let logger = new Logger({ name: "report-trials" });
 
@@ -32,7 +33,11 @@ const DISEASE_BLACKLIST_FILEPATH = "disease_blacklist.csv";
 const TRIALS_FILEPATH = "Development/cts-data/trials.out";
 const SPECIAL_CHARS_REMOVED_EXT = ".01.chars_removed";
 const DISEASES_EXT = ".diseases_list";
+
 const SUPPLEMENTED_EXT = ".02.supplemented";
+const DISEASE_MENU_EXT = ".03.disease_menu";
+const STAGE_MENU_EXT = ".04.stage_menu";
+
 const CLEANSED_EXT = ".03.cleansed";
 
 
@@ -42,6 +47,9 @@ class TrialsReporter {
   constructor() {
     let client = new LexEVSClient(path.join(os.homedir(), TRIALS_FILEPATH.replace("trials.out", "evs_cache")));
     this.thesaurusLookup = new NCIThesaurusLookup(client, "17.04d");
+
+    this.diseases = [];
+    this.stages = [];
   }
 
   /**
@@ -93,6 +101,147 @@ class TrialsReporter {
       });
   }
 
+
+  _extractDiseases(callback) {
+    logger.info("Running Extract Diseases...");
+    let rs = fs.createReadStream(path.join(os.homedir(), TRIALS_FILEPATH + SPECIAL_CHARS_REMOVED_EXT));
+    let ls = byline.createStream();
+    let et = new ExtractTrialStream();
+    let dmr = new DiseaseMenuReporter(this.thesaurusLookup, this.diseases);
+    let jw = JSONStream.stringify();
+    let ws = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + DISEASE_MENU_EXT));
+    rs.on("error", (err) => { logger.error(err); })
+      .pipe(ls)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(et)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(dmr)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(jw)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(ws)
+      .on("error", (err) => { logger.error(err); })
+      .on("finish", (err) => { 
+        callback(err);
+      });
+  }
+
+  _extractStages(callback) {
+    logger.info("Running Extract Stages...");
+    let rs = fs.createReadStream(path.join(os.homedir(), TRIALS_FILEPATH + SPECIAL_CHARS_REMOVED_EXT));
+    let ls = byline.createStream();
+    let et = new ExtractTrialStream();
+    let smr = new StageMenuReporter(this.thesaurusLookup, this.diseases, this.stages);
+    let jw = JSONStream.stringify();
+    let ws = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + STAGE_MENU_EXT));
+    rs.on("error", (err) => { logger.error(err); })
+      .pipe(ls)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(et)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(smr)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(jw)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(ws)
+      .on("error", (err) => { logger.error(err); })
+      .on("finish", (err) => { 
+        callback(err);
+      });
+  }
+
+  _getUniqueMenuItems(arr) {
+    let trialdiseases = arr;
+
+    //Makes multi dim array
+    let grouped = _.groupBy(trialdiseases, disease => disease[5] != '' ? (disease[5] + '/' + disease[2]) : disease[2]);
+    let uniqDiseases = [];
+
+    _.each(grouped, (diseaseGroup, termID) => { //Note, diseaseGroup,termID is value,key
+      //Assume disease Group always has at least one element
+
+      let diseaseInfo = { 
+        "menu": diseaseGroup[0][1],
+        "termID": diseaseGroup[0][2],
+        "status": diseaseGroup[0][3],
+        "displayName": diseaseGroup[0][4],
+        "parentID": diseaseGroup[0][5],
+        "parentName": diseaseGroup[0][6],
+        "trialIDs": diseaseGroup.map(disease => disease[0]).join(',')
+      };
+      
+      uniqDiseases.push(diseaseInfo);
+    });
+
+    return uniqDiseases;
+  }
+
+  _outputMenus(done) {
+    logger.info("Outputting disease menu json...");
+
+    let uniqDiseases = this._getUniqueMenuItems(this.diseases);
+    let uniqStages = this._getUniqueMenuItems(this.stages);
+
+
+
+
+    let timestamp = moment().format('YYYYMMDD_hhmmss');
+    let menu_dir = "menu_" + timestamp;
+    let menu_path = path.join(os.homedir(), TRIALS_FILEPATH.replace("trials.out", menu_dir));    
+
+    async.waterfall([
+      //Make the menu folder.
+      (next) => { fs.mkdir(menu_path, next); },
+      //Build the root menu and spitout the JSON.
+      (next) => {
+        this._saveCancerRoot(uniqDiseases, menu_path, next);
+      },
+      //Build all sub menus
+      (next) => {
+        this._saveCancerSubTypes(uniqDiseases, menu_path, next);
+      },
+      (next) => {
+        this._saveCancerStages(uniqStages, menu_path, next);
+      },
+      (next) => {
+        this._outputFlatDiseaseMenus(uniqDiseases, uniqStages, next);
+      }
+    ],
+    done
+    )  
+  }
+
+  _outputFlatDiseaseMenus(uniqDisease, uniqStages, callback) {
+      logger.info("Outputting flattened disease menus...");
+      
+      let stream = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + "fltmenudiseases.txt"));
+
+      let fields = ['menu','termID','status','displayName','parentID','parentName','trialIDs'];
+      stream.write(fields.join("|") + "\n");
+
+      uniqDisease.forEach(disease => {
+        let outputRow = [];
+        for (let i=0; i< fields.length; i++) {
+          outputRow[i] = disease[fields[i]];
+        }
+        stream.write(outputRow.join("|") + "\n");
+      });
+
+      uniqStages.forEach(stage => {
+        let outputRow = [];
+        for (let i=0; i< fields.length; i++) {
+          outputRow[i] = stage[fields[i]];
+        }
+        stream.write(outputRow.join("|") + "\n");
+      });
+
+      stream.end(null, null, () => {
+        callback();
+      });    
+  }
+  
+  
+/* //Not using this now.
   _reportTrials(callback) {
     logger.info("Running reports trials...");
     let rs = fs.createReadStream(path.join(os.homedir(), TRIALS_FILEPATH + SPECIAL_CHARS_REMOVED_EXT));
@@ -135,17 +284,19 @@ class TrialsReporter {
           callback();
         });
 
-        /*
-        fs.writeFile(
-          path.join(os.homedir(), TRIALS_FILEPATH + "trialdiseases"), 
-          JSON.stringify(trialdiseases.map((td) => td.join('|')), null, '\t'),
-          (err) => {
-            callback(err, res);
-          }
-        );
-        */        
+        
+        //fs.writeFile(
+        //  path.join(os.homedir(), TRIALS_FILEPATH + "trialdiseases"), 
+        //  JSON.stringify(trialdiseases.map((td) => td.join('|')), null, '\t'),
+        //  (err) => {
+        //    callback(err, res);
+        //  }
+        //);
+                
       });
   }
+*/
+
 
   /**
    * This outputs the Primary Cancer, Sub-types, stages and findings/abnormalities
@@ -199,6 +350,8 @@ class TrialsReporter {
     done
     )
   }
+
+  
 
   /**
    * Build and Save Cancer Root Menu
@@ -352,7 +505,7 @@ class TrialsReporter {
       );
   }
 
-
+  /*
   _outputDiseaseMenuReports(dmr, callback) {
       logger.info("Outputting disease menus...");
 
@@ -372,7 +525,8 @@ class TrialsReporter {
         })
       });
   }
-
+  */
+/*
   _outputFlatDiseaseMenus(dmr, callback) {
       logger.info("Outputting flattened disease menus...");
 
@@ -404,6 +558,7 @@ class TrialsReporter {
         callback();
       });    
   }
+*/
 
   static run() {
     logger.info("Started transforming trials.json.");
@@ -414,7 +569,9 @@ class TrialsReporter {
       //(next) => { trialsTransformer._loadThesaurus(next); },
       //(next) => { trialsTransformer._loadNeoplasmCore(next); },
       //(next) => { trialsTransformer._loadDiseaseBlacklist(next); },
-      (next) => { trialsReporter._reportTrials(next); },
+      (next) => { trialsReporter._extractDiseases(next); },
+      (next) => { trialsReporter._extractStages(next); },
+      (next) => { trialsReporter._outputMenus(next); }
       //(next) => { trialsTransformer._loadTerms(next); },
       //(next) => { trialsTransformer._cleanseTrials(next); }
     ], (err) => {

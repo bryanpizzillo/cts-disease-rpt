@@ -4,7 +4,7 @@ const Transform           = require("stream").Transform;
 const Logger              = require("../../common/logger");
 const async               = require("async");
 
-let logger = new Logger({ name: "add-intervention-parents-stream" });
+let logger = new Logger({ name: "extract-trial-stream" });
 
 /**
  * When transforming trials, the supplement transforms should

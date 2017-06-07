@@ -4,7 +4,7 @@ const Transform           = require("stream").Transform;
 const Logger              = require("../../common/logger");
 const async               = require("async");
 
-let logger = new Logger({ name: "disease-menu-stream" });
+let logger = new Logger({ name: "stage-menu-stream" });
 
 //Order from best choice to least best, so order matters
 const PARENTS_OF_LAST_RESORT  = [
@@ -36,15 +36,20 @@ const PARENTS_OF_LAST_RESORT  = [
  * @class TransformStream
  * @extends {Transform}
  */
-class DiseaseReporter extends Transform {
+class StageMenuReporter extends Transform {
 
-  constructor(thesaurusLookup, diseases) {
+  constructor(thesaurusLookup, diseases, stages) {
     super({ objectMode: true });
 
     this.thesaurusLookup = thesaurusLookup;
 
     //Create hashes
     this.diseases = diseases;
+
+    //Pull out menus
+    this.menuItems = this._getCancerMenuItems(this.diseases);
+
+    this.stages = stages;
 
     //So we build the map once and do not have to iterate over the array
     //each time we want to use it.
@@ -58,6 +63,89 @@ class DiseaseReporter extends Transform {
 
   getReportedDiseases() {
       return this.diseases;
+  }
+
+  _getCancerMenuItems(diseases) {
+
+    let rtnMenuItems = {};
+
+    //Makes multi dim array
+    let grouped = _.groupBy(diseases, disease => disease[5] != '' ? (disease[5] + '/' + disease[2]) : disease[2]);
+    let uniqDiseases = [];
+
+    _.each(grouped, (diseaseGroup, termID) => { //Note, diseaseGroup,termID is value,key
+      //Assume disease Group always has at least one element
+
+      let diseaseInfo = { 
+        "menu": diseaseGroup[0][1],
+        "termID": diseaseGroup[0][2],
+        //No Status
+        "displayName": diseaseGroup[0][4],
+        "parentID": diseaseGroup[0][5],
+        "parentName": diseaseGroup[0][6]
+        //No Trial IDs
+      };
+      
+      uniqDiseases.push(diseaseInfo);
+    });
+
+    //These are the items with no parent since the trial was tagged against
+    //a top level parent.
+    let directlyIndexedParents = _(uniqDiseases)
+      .filter(mi => (mi.menu == "Neoplasm" && mi.parentID == ''))
+      .value()
+      .map(mi => {
+        return {
+          termID: mi.termID,
+          displayName: mi.displayName            
+        }
+      });
+
+    //These are the menu items with parents where the trials where tagged against a child,      
+    let parentsForIndexedChildren = _(uniqDiseases)
+      .filter(mi => (mi.menu == "Neoplasm" && mi.parentID != ''))
+      .value()
+      .map(mi => {
+        return {
+          termID: mi.parentID,
+          displayName: mi.parentName
+        }
+      });
+
+    //Combine the two
+    let parents = _.unionBy(directlyIndexedParents, parentsForIndexedChildren, 'termID');
+    parents = _.sortBy(parents, 'displayName');
+
+    //Add Primary Menu Items to our List of Menus
+    let rootMenu = _.unionBy(parents, 'termID')
+      .map(mi => {
+        return {
+          "displayName": mi.displayName,
+          "entityID": mi.termID
+        }
+      })
+      .forEach(mi => {
+        rtnMenuItems[mi.entityID] = mi;
+      });
+
+
+    let groupedMenus = _(uniqDiseases)
+      .filter(mi => { return (mi.menu == "Neoplasm" && mi.parentID != '')} )
+      .map(mi => {
+        return {
+          "displayName": mi.displayName,
+          "entityID": mi.termID
+        }        
+      })
+      .uniqBy('entityID')
+      .value()
+      .forEach(mi => {
+        if (!rtnMenuItems[mi.entityID]) {
+          rtnMenuItems[mi.entityID] = mi;
+        }
+      });;
+
+      return rtnMenuItems;
   }
 
   /**
@@ -149,16 +237,16 @@ class DiseaseReporter extends Transform {
    * @param {*} depth The current term depth.  Only includes depth of non-stage terms.
    * @param {*} done 
    */
-  _findNonStageParents(term, depth, done) {
-
+  _findNonStageParents(term, done) {
     let parents = [];
 
     async.eachLimit(
       term.parentTermIDs,
       20,
-      (parentID, cb) => {
+      (parentID, cb) => {        
         //Get each immediate parent's term and parents.
         this.thesaurusLookup.getTerm(parentID, (err, parentTerm) => {
+
           if (err) {
             return cb(err);
           }
@@ -166,43 +254,36 @@ class DiseaseReporter extends Transform {
           //Only add it to our parents list if it is not a stage.
           if (!term.hasSubjectOfAssociation("Disease_Is_Stage") && !term.hasSubjectOfAssociation("Disease_Is_Grade")) {
             if (!_.some(parents, ["entityID", parentTerm.entityID])) {
-
-              parents.push(
-                {
-                  depth: depth,
-                  parentTerm: parentTerm
-                }
-              );
-              depth = depth + 1;
+              parents.push(parentTerm);
+            }
+          }
+     
+          //add all other parents, take this elevator up to the root.
+          this._findNonStageParents(parentTerm, (mperr, ancestors) => {
+            if (mperr) {
+              return cb(mperr);
             }
 
-            //add all other parents, take this elevator up to the root.
-            this._findNonStageParents(parentTerm, depth, (mperr, ancestors) => {
-              if (mperr) {
-                return cb(mperr);
+            //This list will be filtered not containing any stages
+            ancestors.forEach((ancestor) => {
+              if (!_.some(parents, ["entityID", ancestor.entityID])) {
+                //ASSUMPTION: A stage would always roll up to a cancer type, and then
+                //it is that type that can live multiple places in the tree.  I.E. We should
+                //never have an existing term at a different level of the tree for anything that
+                //is a depth of 1.  Past the initial type, other parents could live at diffent 
+                //depths.
+                parents.push(ancestor);
               }
-
-              //This list will be filtered not containing any stages
-              ancestors.forEach((ancestor) => {
-                if (!_.some(parents, ["entityID", ancestor.parentTerm.entityID])) {
-                  //ASSUMPTION: A stage would always roll up to a cancer type, and then
-                  //it is that type that can live multiple places in the tree.  I.E. We should
-                  //never have an existing term at a different level of the tree for anything that
-                  //is a depth of 1.  Past the initial type, other parents could live at diffent 
-                  //depths.
-                  parents.push(ancestor);
-                }
-              });
-
-              setTimeout(() => { cb(); });
             });
 
-          }
+            setTimeout(() => { cb(null,null); });
+          });
+
         })
       },
       (err) => {
         if (err) {
-          return done(err);
+          return done(err, null);
         }
         return done(null, parents);
       }
@@ -232,32 +313,27 @@ class DiseaseReporter extends Transform {
     
     async.waterfall([
       //Get all main parents
-      (next) => { this._getMainParents(term, next) },
+      (next) => { 
+        this._findNonStageParents(term, next) 
+      },
       //Determine what our parents are.
-      (mainParents, next) => {
+      (parents, next) => {
+        let menuParents = []
 
-        if (mainParents.length > 0) {
-          //Get list of parents with parents of last resort removed.  Parents of last resort should not
-          //have stages displayed.
-          let filteredParents = _.differenceBy(mainParents, this.PARENTS_OF_LAST_RESORT_MAP, 'entityID');
+        //TODO: Remove Parents of Last Resort.
+        parents = _.differenceBy(parents, this.PARENTS_OF_LAST_RESORT_MAP, 'entityID');
 
-          if (filteredParents.length > 0) {
-            //We have a good list of parents.  Of course, these could be primary.
-            next(null, filteredParents);
-          } else {
-            //Here we have a stage that has a parent, but it is a parent of last resort and should not appear in
-            //that menu.  We need to find the all the immediate neoplastic processes that are under the main
-            //parents. (As a term can have multiple parents, it could follow multiple paths.)  Add those terms if
-            //they are not already a disease on the trial, then use those new terms as the parents of this stage.
-            
-            //FOR TESTING, just set parents to none.
-            next(null, []);
+        //Find appropriate menu items
+        parents.forEach(p => {
+          //Only use parents that are either a Primary Type or a Sub-Type.
+          if (this.menuItems[p.entityID]){
+            if (!_.some(menuParents, ['entityID', p.entityID])) {
+              menuParents.push(p);
+            }
           }
-        } else {
-          //So there is no parent, not even one that is a last resort.  We could add the immediate neoplastic processes
-          //as Neoplasm - No Parent for reporting.  Treat it as stage no parents for now.
-          next(null, []);
-        }
+        })
+
+        next(null, menuParents);
       },
       (mainParents, next) => {
         //We have the correct filtered list of main parents, so no need to deal with that.
@@ -358,7 +434,8 @@ class DiseaseReporter extends Transform {
     });
   }
 
-  _getDiseaseInfo(disease, trialDiseases, done) {
+  _getStageInfo(disease, trialDiseases, done) {
+  
     this.thesaurusLookup.getTerm(disease.nci_thesaurus_concept_id, (err, term) => {
       if (err) {
         return done(err);
@@ -382,73 +459,19 @@ class DiseaseReporter extends Transform {
         return done(null, []);
       }      
 
-      if (term.isSemanticType("Neoplastic Process") || term.isSemanticType("Disease or Syndrome")) {
-        //Call neoplastic process specific code and stop processing this term
-
-        if (term.hasSubjectOfAssociation("Disease_Is_Stage") || term.hasSubjectOfAssociation("Disease_Is_Grade")) {
-          //return this._getStage(disease, term, trialDiseases, done);
-          return done(null, []); //Refactored into 2nd pass through stage_menu_reporter.
-        } else {
-          return this._getNeoplasticProcess(disease, term, done);
-        }
-
-      } else { 
-        if (
-          term.isSemanticType("Laboratory or Test Result") || 
-          term.isSemanticType("Finding") ||
-          term.isSemanticType("Cell or Molecular Dysfunction") ||
-          term.isSemanticType("Gene or Genome") ||
-          term.isSemanticType("Clinical Attribute")
-        ) {
-          //Finding...
-          let rtnTermInfo = {
-            termID: disease.nci_thesaurus_concept_id,
-            menu: 'Finding or Abnormality',
-            conceptStatus: term.conceptStatus,
-            displayName: term.displayName ? term.displayName : term.preferredName,
-            parentID: null,
-            parentName: null
-          };
-          rtnTermInfos.push(rtnTermInfo);
-        }
-        else if (           
-          term.isSemanticType("Sign or Symptom") || 
-          term.isSemanticType("Mental or Behavioral Dysfunction")
-        ) {
-          //Side Effect
-          let rtnTermInfo = {
-            termID: disease.nci_thesaurus_concept_id,
-            menu: 'Side Effect',
-            conceptStatus: term.conceptStatus,            
-            displayName: term.displayName ? term.displayName : term.preferredName,
-            parentID: null,
-            parentName: null
-          };
-          rtnTermInfos.push(rtnTermInfo);
-        }
-        else {        
-          let rtnTermInfo = {
-            termID: disease.nci_thesaurus_concept_id,
-            menu: 'UNKNOWN',
-            conceptStatus: term.conceptStatus,
-            displayName: term.displayName ? term.displayName : term.preferredName,
-            parentID: null,
-            parentName: null            
-          };
-          console.log(`${term.preferredName} (${term.entityID}) is not a known type`);
-          console.log(term.semanticTypes);
-          rtnTermInfos.push(rtnTermInfo);
-        }
-        return done(null, rtnTermInfos);
+      if (term.hasSubjectOfAssociation("Disease_Is_Stage") || term.hasSubjectOfAssociation("Disease_Is_Grade")) {        
+        return this._getStage(disease, term, trialDiseases, done);
+      } else {
+        return done(null, []);
       }
-    })
+    });
   }
 
   /**
    * Group up all diseases from the supplied trial
    * @param {*} trial 
    */
-  _inventoryDiseases(trial, done) {
+  _inventoryStages(trial, done) {
     let trial_diseases = [];
 
     let trialDiseases = _.filter(trial.diseases, ["inclusion_indicator", "TRIAL"]);
@@ -458,7 +481,7 @@ class DiseaseReporter extends Transform {
       20,
       (disease, next) => {
         //fetch disease
-        this._getDiseaseInfo(disease, trialDiseases, (err, diseaseInfos) => {
+        this._getStageInfo(disease, trialDiseases, (err, stageInfos) => {
           if (err) {
             return next(err);
           }
@@ -473,15 +496,15 @@ class DiseaseReporter extends Transform {
         unknown: ''
 */
           //push info
-          diseaseInfos.forEach((diseaseInfo) => {
-            this.diseases.push([
+          stageInfos.forEach((stageInfo) => {
+            this.stages.push([
               trial.nci_id, 
-              diseaseInfo.menu,
-              diseaseInfo.termID,              
-              diseaseInfo.conceptStatus,
-              diseaseInfo.displayName,
-              diseaseInfo.parentID,
-              diseaseInfo.parentName
+              stageInfo.menu,
+              stageInfo.termID,              
+              stageInfo.conceptStatus,
+              stageInfo.displayName,
+              stageInfo.parentID,
+              stageInfo.parentName
             ]);
           });
           setTimeout(() => { next(); });
@@ -493,9 +516,9 @@ class DiseaseReporter extends Transform {
 
   _transform(trial, enc, next) {
 
-    logger.info(`Disease reporting for trial with nci_id (${trial.nci_id})...`);
+    logger.info(`Stage reporting for trial with nci_id (${trial.nci_id})...`);
 
-    this._inventoryDiseases(trial, (err, res) => {
+    this._inventoryStages(trial, (err, res) => {
       this.push(trial);
       next(err);
     });
@@ -504,4 +527,4 @@ class DiseaseReporter extends Transform {
 
 }
 
-module.exports = DiseaseReporter;
+module.exports = StageMenuReporter;
