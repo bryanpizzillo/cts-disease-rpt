@@ -237,7 +237,7 @@ class StageMenuReporter extends Transform {
    * @param {*} depth The current term depth.  Only includes depth of non-stage terms.
    * @param {*} done 
    */
-  _findNonStageParents(term, done) {
+  _findNonStageParents(term, depth, done) {
     let parents = [];
 
     async.eachLimit(
@@ -254,12 +254,16 @@ class StageMenuReporter extends Transform {
           //Only add it to our parents list if it is not a stage.
           if (!term.hasSubjectOfAssociation("Disease_Is_Stage") && !term.hasSubjectOfAssociation("Disease_Is_Grade")) {
             if (!_.some(parents, ["entityID", parentTerm.entityID])) {
-              parents.push(parentTerm);
+              parents.push({ 
+                entityID: parentTerm.entityID,
+                depth: depth,
+                parentTerm: parentTerm
+              });
             }
           }
      
           //add all other parents, take this elevator up to the root.
-          this._findNonStageParents(parentTerm, (mperr, ancestors) => {
+          this._findNonStageParents(parentTerm, depth + 1, (mperr, ancestors) => {
             if (mperr) {
               return cb(mperr);
             }
@@ -314,11 +318,13 @@ class StageMenuReporter extends Transform {
     async.waterfall([
       //Get all main parents
       (next) => { 
-        this._findNonStageParents(term, next) 
+        this._findNonStageParents(term, 1, next) 
       },
       //Determine what our parents are.
       (parents, next) => {
         let menuParents = []
+
+        parents = _.sortBy(parents, 'depth');
 
         //TODO: Remove Parents of Last Resort.
         parents = _.differenceBy(parents, this.PARENTS_OF_LAST_RESORT_MAP, 'entityID');
@@ -332,6 +338,15 @@ class StageMenuReporter extends Transform {
             }
           }
         })
+
+        let minDepth = _.min(menuParents.map(mp => mp.depth));
+        
+        if (minDepth) {
+          menuParents = _.filter(menuParents, ['depth', minDepth])
+            .map(mp => mp.parentTerm);
+        } else {
+          menuParents = [];
+        }
 
         next(null, menuParents);
       },
