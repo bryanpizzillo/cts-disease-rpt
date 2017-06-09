@@ -23,6 +23,7 @@ const TrialIDReporter       = require("./stream/trialid_reporter");
 const TrialDiseaseReporter  = require("./stream/trial_disease_reporter");
 const DiseaseMenuReporter  = require("./stream/disease_menu_reporter");
 const StageMenuReporter  = require("./stream/stage_menu_reporter");
+const FindingsMenuReporter  = require("./stream/findings_menu_reporter");
 
 let logger = new Logger({ name: "report-trials" });
 
@@ -37,6 +38,7 @@ const DISEASES_EXT = ".diseases_list";
 const SUPPLEMENTED_EXT = ".02.supplemented";
 const DISEASE_MENU_EXT = ".03.disease_menu";
 const STAGE_MENU_EXT = ".04.stage_menu";
+const FINDINGS_MENU_EXT = ".04.findings_menu";
 
 const CLEANSED_EXT = ".03.cleansed";
 
@@ -50,6 +52,7 @@ class TrialsReporter {
 
     this.diseases = [];
     this.stages = [];
+    this.findings = [];
   }
 
   /**
@@ -150,6 +153,31 @@ class TrialsReporter {
       });
   }
 
+
+  _extractFindings(callback) {
+    logger.info("Running Extract Findings...");
+    let rs = fs.createReadStream(path.join(os.homedir(), TRIALS_FILEPATH + SPECIAL_CHARS_REMOVED_EXT));
+    let ls = byline.createStream();
+    let et = new ExtractTrialStream();
+    let fmr = new FindingsMenuReporter(this.thesaurusLookup, this.diseases, this.stages, this.findings);
+    let jw = JSONStream.stringify();
+    let ws = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + FINDINGS_MENU_EXT));
+    rs.on("error", (err) => { logger.error(err); })
+      .pipe(ls)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(et)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(fmr)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(jw)
+      .on("error", (err) => { logger.error(err); })
+      .pipe(ws)
+      .on("error", (err) => { logger.error(err); })
+      .on("finish", (err) => { 
+        callback(err);
+      });
+  }
+
   _getUniqueMenuItems(arr) {
     let trialdiseases = arr;
 
@@ -181,7 +209,7 @@ class TrialsReporter {
 
     let uniqDiseases = this._getUniqueMenuItems(this.diseases);
     let uniqStages = this._getUniqueMenuItems(this.stages);
-
+    let uniqFindings = this._getUniqueMenuItems(this.findings);
 
 
 
@@ -204,14 +232,17 @@ class TrialsReporter {
         this._saveCancerStages(uniqStages, menu_path, next);
       },
       (next) => {
-        this._outputFlatDiseaseMenus(uniqDiseases, uniqStages, next);
+        this._saveFindings(uniqFindings, menu_path, next);
+      },
+      (next) => {
+        this._outputFlatDiseaseMenus(uniqDiseases, uniqStages, uniqFindings, next);
       }
     ],
     done
     )  
   }
 
-  _outputFlatDiseaseMenus(uniqDisease, uniqStages, callback) {
+  _outputFlatDiseaseMenus(uniqDisease, uniqStages, uniqFindings, callback) {
       logger.info("Outputting flattened disease menus...");
       
       let stream = fs.createWriteStream(path.join(os.homedir(), TRIALS_FILEPATH + "fltmenudiseases.txt"));
@@ -228,6 +259,14 @@ class TrialsReporter {
       });
 
       uniqStages.forEach(stage => {
+        let outputRow = [];
+        for (let i=0; i< fields.length; i++) {
+          outputRow[i] = stage[fields[i]];
+        }
+        stream.write(outputRow.join("|") + "\n");
+      });
+
+      uniqFindings.forEach(stage => {
         let outputRow = [];
         for (let i=0; i< fields.length; i++) {
           outputRow[i] = stage[fields[i]];
@@ -345,6 +384,9 @@ class TrialsReporter {
       },
       (next) => {
         this._saveCancerStages(uniqDiseases, menu_path, next);
+      },
+      (next) => {
+        this._saveFindings(uniqDiseases, menu_path, next);
       }
     ],
     done
@@ -505,6 +547,53 @@ class TrialsReporter {
       );
   }
 
+  _saveFindings(uniqDiseases, menu_path, done) {
+
+    //Need to keep in mind simplified menus.
+      let groupedMenus = _(uniqDiseases)
+        .filter(mi => { return (mi.menu == "Finding or Abnormality" || mi.menu == "Side Effect")} )
+        .groupBy('parentID')
+        .value();
+
+      async.each(
+        _.keys(groupedMenus),
+        (parentID, cb) => {
+          this._saveFindingsMenu(parentID, groupedMenus[parentID], menu_path, cb);
+        },
+        (err) => {
+          if (err) {
+            return done(err);
+          } else {
+            return done();
+          }
+        }
+      );
+  }
+
+    /**
+   * Outputs a single Sub Type Menu
+   * @param {*} parentID 
+   * @param {*} menuItems 
+   * @param {*} menu_path 
+   * @param {*} done 
+   */
+  _saveFindingsMenu(parentID, menuItems, menu_path, done) {
+    let menu = JSON.stringify(_.sortBy(menuItems, 'displayName').map(mi => {
+      return {
+        "key": mi.displayName,
+        "codes": [ mi.termID ]
+      }
+    }));
+    
+    fs.writeFile(path.join(menu_path, `findings_${parentID}.json`), menu, (err) => {
+      if (err) {
+        return done(err);
+      } else {
+        return done();
+      }
+    });
+  } 
+
   /*
   _outputDiseaseMenuReports(dmr, callback) {
       logger.info("Outputting disease menus...");
@@ -571,6 +660,7 @@ class TrialsReporter {
       //(next) => { trialsTransformer._loadDiseaseBlacklist(next); },
       (next) => { trialsReporter._extractDiseases(next); },
       (next) => { trialsReporter._extractStages(next); },
+      (next) => { trialsReporter._extractFindings(next); },
       (next) => { trialsReporter._outputMenus(next); }
       //(next) => { trialsTransformer._loadTerms(next); },
       //(next) => { trialsTransformer._cleanseTrials(next); }

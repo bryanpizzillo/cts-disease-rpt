@@ -400,31 +400,13 @@ class DiseaseReporter extends Transform {
           term.isSemanticType("Gene or Genome") ||
           term.isSemanticType("Clinical Attribute")
         ) {
-          //Finding...
-          let rtnTermInfo = {
-            termID: disease.nci_thesaurus_concept_id,
-            menu: 'Finding or Abnormality',
-            conceptStatus: term.conceptStatus,
-            displayName: term.displayName ? term.displayName : term.preferredName,
-            parentID: null,
-            parentName: null
-          };
-          rtnTermInfos.push(rtnTermInfo);
+          return done(null, []); //Refactored into 3rd pass through findings_menu_reporter.
         }
         else if (           
           term.isSemanticType("Sign or Symptom") || 
           term.isSemanticType("Mental or Behavioral Dysfunction")
         ) {
-          //Side Effect
-          let rtnTermInfo = {
-            termID: disease.nci_thesaurus_concept_id,
-            menu: 'Side Effect',
-            conceptStatus: term.conceptStatus,            
-            displayName: term.displayName ? term.displayName : term.preferredName,
-            parentID: null,
-            parentName: null
-          };
-          rtnTermInfos.push(rtnTermInfo);
+          return done(null, []); //Refactored into 3rd pass through findings_menu_reporter.
         }
         else {        
           let rtnTermInfo = {
